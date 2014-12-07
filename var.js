@@ -22,12 +22,12 @@ var library = {
 
 	//dataaa
 	'data': {
-		'loop': null,
 		'poop': false,
 		'highscore': null,
 		'rounds': 0,
 		'music': false,
-		'player': ['reverse', 'clockwise', 'counter-clockwise']
+		'player': ['reverse', 'clockwise', 'counter-clockwise'],
+		'color': ['cyan', 'magenta', 'yellow']
 	}
 };
 
@@ -49,7 +49,8 @@ var game = {
 		//[pims, skulls, magic, portals = 3]
 	'limit': [null, null, null, 3],
 	'player': null,
-	'player_countdown': null
+	'player_loop': null,
+	'loop': null
 };
 
 var elements = {

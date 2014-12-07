@@ -63,10 +63,15 @@ function init_info() {
 	//set the player action
 	var playerRandom = Math.floor(Math.random() * 3);
 	game.player = library.data.player[playerRandom];
-	console.log('the initial action is: ' + game.player);
+	// console.log('the initial action is: ' + game.player);
 	elements.player_action.textContent = game.player;
 
 }
+
+
+
+
+
 
 function game_start() {
 	//clean everything up
@@ -78,7 +83,10 @@ function game_start() {
 	game.running = true;
 
 	//start the intervals
-	game.player_countdown = window.setInterval(player_change_action, 5000);
+	game.player_loop = window.setInterval(player_change_action, 5000);
+	game.loop = window.setInterval(gameUpdate, 100);
+
+	//add event listeners
 }
 
 function reset_game_info() {
@@ -121,4 +129,12 @@ function player_change_action() {
 	game.player = options[choice];
 	// console.log('the new action is: ' + game.player);
 	elements.player_action.textContent = game.player; 
+}
+
+function gameUpdate() {
+	//render things
+
+	//update things
+
+	//spawn things
 }
