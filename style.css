@@ -46,10 +46,42 @@ html {
 
 
 
-.game {}
-.game canvas {}
-.game .help {}
-.game .action {}
+.game {
+	padding: 1em 0 0;
+}
+.game canvas {
+	background: #404040;
+	display: block;
+	margin: 0 auto;
+}
+.game .help {
+	position: absolute;
+	top: 0;
+	right: 1em;
+	padding: 0.5em;
+	margin: 0;
+	background: lime;
+	cursor: pointer;
+	font-size: 1.3em;
+	-o-transition: background 0.2s ease-in;
+	-ms-transition: background 0.2s ease-in;
+	-moz-transition: background 0.2s ease-in;
+	-webkit-transition: background 0.2s ease-in;
+	transition: background 0.2s ease-in;
+}
+.game .help:hover {
+	background: forestgreen;
+}
+.game .action {
+	position: absolute;
+	bottom: 0em;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: 50%;
+	background: tomato;
+	text-align: center;
+}
 
 
 

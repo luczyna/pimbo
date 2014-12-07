@@ -14,7 +14,7 @@ var library = {
 	'canvas': [],
 	'multiplier': 0,
 	//[x, y, frame_x, frame_y]
-	'pim_size': [],
+	'pim_size': [864, 1248, 72, 96],
 	'magic_size': [],
 	'portal_size': [],
 	'poof_size': [],
@@ -22,7 +22,8 @@ var library = {
 
 	//dataaa
 	'data': {
-		'poop': true,
+		'loop': null,
+		'poop': false,
 		'highscore': null,
 		'rounds': 0,
 		'music': false,
@@ -47,21 +48,22 @@ var game = {
 	'magic': [],
 		//[pims, skulls, magic, portals = 3]
 	'limit': [null, null, null, 3],
-	'player': null
+	'player': null,
+	'player_countdown': null
 };
 
 var elements = {
 	'opening': document.getElementById('open-screen'),
 	'game': document.getElementById('game-screen'),
 	'ending': document.getElementById('end-screen'),
-	'help_button': document.getElementById('game-help'),
 	'info': document.getElementById('info-screen'),
 	
 	'player_action': document.getElementById('game-action'),
-	
+	'canvas': document.getElementById('game-canvas'),
+	'c': null,
+
 	'info_round': document.getElementById('info-round'),
 	'info_time': document.getElementById('info-time'),
-	'info_lose': document.getElementById('info-close'),
 	
 	'end_message': document.querySelector('.rando'),
 	'end_ghosts': document.getElementById('end-ghost-count'),
@@ -69,8 +71,10 @@ var elements = {
 	'end_score': document.getElementById('end-score'),
 	
 	'play': document.getElementById('open-play'),
-	'play_again': document.getElementById('end-play')
-	
+	'play_again': document.getElementById('end-play'),
+	'help_button': document.getElementById('game-help'),
+	'info_close': document.getElementById('info-close'),
+
 	'highscore_open': document.getElementById('open-hs'),
 	'highscore_info': document.getElementById('info-highscore'),
 	'highscore_end': document.getElementById('end-hs'),
