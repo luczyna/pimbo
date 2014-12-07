@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Pimbo</title>
+	<meta name="description" content="Stuck in Pimbo: an HTML5 canvas game about Pims and Ghosts">
+	<meta name="viewport" content="width=device-width; initial-zoom=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body class="wrap">
+	<div class="opening" id="open-screen">
+		<h1>Stuck in Pimbo</h1>
+		<p class="button" id="open-play">play</p>
+		<p class="highscore hidden">highscore: <span id="open-hs"></span></p>
+	</div>
+
+	<div class="game hidden" id="game-screen">
+		<canvas id="game-canvas"></canvas>
+		<p class="help" id="game-help">?</p>
+		<p class="action" id="game-action"></p>
+	</div>
+
+	<div class="info hidden" id="info-screen">
+		<section class="current">
+			<dl>
+				<dt>round</dt>
+				<dd id="info-round"></dd>
+
+				<dt>time</dt>
+				<dd id="info-time"></dd>
+
+				<dt>highscore</dt>
+				<dd class="hidden" id="info-highscore"></dd>
+			</dl>
+		</section>
+
+		<section class="howto">
+			<h2>How to play</h2>
+			<p>sldkfjsldkfjsldkfj</p>
+			<p>sldkfjsdlkfjsldkfj</p>
+		</section>
+
+		<section class="about">
+			<h2>About us</h2>
+			<p>dfsldkjfsdauihenkd  kfjhdfgkjdhfg</p>
+		</section>
+	</div>
+
+	<div class="end hidden" id="end-screen">
+		<h2>Success!</h2>
+		<p class="rando">You've helped a generation of Pims</p>
+		<dl>
+			<dt>Ghosts</dt>
+			<dd id="end-ghost-count"></dd>
+
+			<dt>Time</dt>
+			<dd id="end-time"></dd>
+		</dl>
+		<p class="score">score: <span class id="end-score"></span></p>
+		<p class="highscore hidden">highscore: <span id="end-hs"></span></p>
+
+		<p class="button" id="end-play">play again</p>
+	</div>
+
+	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="pims.js"></script>
+</body>
+</html>
