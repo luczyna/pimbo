@@ -15,10 +15,10 @@ var library = {
 	'multiplier': 0,
 	//[x, y, frame_x, frame_y]
 	'pim_size': [864, 1248, 72, 96],
-	'magic_size': [],
-	'portal_size': [],
-	'poof_size': [],
-	'skull_size': [],
+	'magic_size': [256, 192, 64, 64],
+	'portal_size': [288, 64, 72, 64],
+	'poof_size': [288, 96, 72, 96],
+	'skull_size': [64, 64],
 
 	//dataaa
 	'data': {

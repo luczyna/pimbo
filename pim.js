@@ -4,11 +4,13 @@ function Pim(color) {
 	this.state = 'ghost';
 	this.tick = 0;
 	this.direction = 'down';
-	this.countdown = Math.floor(Math.random() * 6) + 1;
+	this.countdown = (Math.floor(Math.random() * 6) + 1);
 	this.primed = false;
 	this.dancing = false;
-	var pox = Math.max(Math.floor(Math.random * library.canvas[0]), library.canvas[0] - library.pim_size[2] * library.multiplier);
-	var poy = Math.max(Math.floor(Math.random * library.canvas[1]), library.canvas[1] - library.pim_size[3] * library.multiplier);
+	// var pox = Math.max(Math.floor(Math.random() * library.canvas[0]), library.canvas[0] - library.pim_size[2] * library.multiplier);
+	// var poy = Math.max(Math.floor(Math.random() * library.canvas[1]), library.canvas[1] - library.pim_size[3] * library.multiplier);
+	var pox = Math.floor(Math.random() * (library.canvas[0] - library.pim_size[2] * library.multiplier));
+	var poy = Math.floor(Math.random() * (library.canvas[1] - library.pim_size[3] * library.multiplier));
 	this.pos = [pox, poy];
 }
 Pim.prototype.changeDirection = function(cause) {
@@ -20,14 +22,16 @@ Pim.prototype.changeDirection = function(cause) {
 		//what are our options
 		var ind = options.indexOf(current);
 		var opt = [];
-		for (var i = 0; i < 3; i++) {
-			if (ind !== i) {
+		for (var i = 0; i < 4; i++) {
+			if (i !== ind) {
 				opt.push(options[i]);
 			}
 		}
+		// console.log(opt);
 
 		var rando = Math.floor(Math.random() * 3);
 		this.direction = opt[rando];
+		// console.log('changed direction from ' + current + ' to ' + this.direction);
 	} else if (cause === 'player') {
 		//what is the player action?
 		var p = game.player;
@@ -48,7 +52,14 @@ Pim.prototype.changeDirection = function(cause) {
 			else if (current === 'left') { this.direction = 'down'; }
 			else if (current === 'right') { this.direction = 'up'; }
 		}
+		console.log('changed direction, thanks huamn');
 	}
+
+	//complete it by starting a new countdown
+	this.countdown = (Math.floor(Math.random() * 6) + 1);
+}
+Pim.prototype.goToLight = function() {
+	console.log('going to the light');
 }
 
 
