@@ -90,7 +90,6 @@ function game_start() {
 	//add event listeners
 	elements.canvas.addEventListener('click', pushPim, false);
 }
-
 function reset_game_info() {
 	game.start = 0;
 	game.end = 0;
@@ -106,13 +105,36 @@ function reset_game_info() {
 	
 	game.limit[0] = game.round + 3;
 	game.limit[1] = game.round + 5;
-	game.limit[2] = Math.floor(Math.random() * 5) + game.round + 10;
+	game.limit[2] = Math.floor(Math.random() * 5) + game.round * 2 + 10 * 2;
 
 	window.clearInterval(game.loop);
 	window.clearInterval(game.player_loop);
 	game.player = library.data.player[Math.floor(Math.random() * 3)];
 }
+function roundOver() {
+	//congratulations!
 
+
+	//stop things that need to be stopped
+	game.running = false;
+	game.finished = true;
+	// window.clearInterval(game.loop);
+	window.clearInterval(game.player_loop);
+	elements.canvas.removeEventListener('click', pushPim, false);
+	
+	//what's our ending info?
+	game.end = new Date();
+	//take into account the saved time from pauses later
+	var total = (game.end.getTime() - game.start.getTime()) / 1000 / 60;
+	var pretty = Math.floor(total) + ':' + Math.round(((Math.floor(total) - total) * 60));
+
+	library.data.rounds++;
+	var score = ( library.data.rounds * ((game.limit[0] / 3) + 3) * 1000 ) - (total * 60 * 2);
+
+	var message = 'You completed the game! You cleared ' + game.limit[0] + ' pims in ' + pretty + '. This was round ' + library.data.rounds + ', so your score was ' + score + '.';
+	console.log(message);
+
+}
 
 
 

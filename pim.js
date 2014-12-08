@@ -4,6 +4,9 @@ function Pim(color) {
 	this.state = 'ghost';
 	this.tick = 0;
 	this.direction = 'down';
+	this.done = false,
+	this.onDestiny = false,
+	this.destiny = [null, null],
 	this.countdown = (Math.floor(Math.random() * 6) + 1);
 	this.primed = false;
 	this.prime_countdown = 10;
@@ -62,23 +65,25 @@ Pim.prototype.changeDirection = function(cause) {
 Pim.prototype.collide = function() {
 	var pd = [];
 
-	if (this.direction === 'left') {
-		pd[0] = this.pos[0];
-		pd[1] = this.pos[1] + (library.pim_size[3] * library.multiplier / 2);
-	} else if (this.direction === 'right') {
-		pd[0] = this.pos[0] + library.pim_size[2] * library.multiplier;
-		pd[1] = this.pos[1] + (library.pim_size[3] * library.multiplier / 2);
-	} else if (this.direction === 'up') { 
-		pd[0] = this.pos[0] + (library.pim_size[2] * library.multiplier / 2);
-		pd[1] = this.pos[1];
-	} else if (this.direction === 'down') {
-		pd[0] = this.pos[0] + (library.pim_size[2] * library.multiplier / 2);
-		pd[1] = this.pos[1] + library.pim_size[2] * library.multiplier;
-	}
+	// if (this.direction === 'left') {
+	// 	pd[0] = this.pos[0];
+	// 	pd[1] = this.pos[1] + (library.pim_size[3] * library.multiplier / 2);
+	// } else if (this.direction === 'right') {
+	// 	pd[0] = this.pos[0] + library.pim_size[2] * library.multiplier;
+	// 	pd[1] = this.pos[1] + (library.pim_size[3] * library.multiplier / 2);
+	// } else if (this.direction === 'up') { 
+	// 	pd[0] = this.pos[0] + (library.pim_size[2] * library.multiplier / 2);
+	// 	pd[1] = this.pos[1];
+	// } else if (this.direction === 'down') {
+	// 	pd[0] = this.pos[0] + (library.pim_size[2] * library.multiplier / 2);
+	// 	pd[1] = this.pos[1] + library.pim_size[2] * library.multiplier;
+	// }
+	pd[0] = this.pos[0];
+	pd[1] = this.pos[1];
 
 	//check for skulls
 	if (this.state === 'ghost') {
-		this.checkCollide('skulls', 20, pd);
+		this.checkCollide('skulls', 50, pd);
 	} else if (this.state === 'zombie') {
 		this.checkCollide('magic', 50, pd);
 	}
@@ -105,19 +110,21 @@ Pim.prototype.checkCollide = function(obj, sensitivity, pd) {
 		var item = check[i];
 		var id = [], collect = false;
 
-		if (this.direction === 'left') {
-			id[0] = item.pos[0] + l[0] * library.multiplier;
-			id[1] = item.pos[1] + (l[1] * library.multiplier / 2);
-		} else if (this.direction === 'right') {
-			id[0] = item.pos[0];
-			id[1] = item.pos[1] + (l[1] * library.multiplier / 2);
-		} else if (this.direction === 'up') { 
-			id[0] = item.pos[0] + (l[0] * library.multiplier / 2);
-			id[1] = item.pos[1] + l[1] * library.multiplier;
-		} else if (this.direction === 'down') {
-			id[0] = item.pos[0] + (l[2] * library.multiplier / 2);
-			id[1] = item.pos[1];
-		}
+		// if (this.direction === 'left') {
+		// 	id[0] = item.pos[0] + l[0] * library.multiplier;
+		// 	id[1] = item.pos[1] + (l[1] * library.multiplier / 2);
+		// } else if (this.direction === 'right') {
+		// 	id[0] = item.pos[0];
+		// 	id[1] = item.pos[1] + (l[1] * library.multiplier / 2);
+		// } else if (this.direction === 'up') { 
+		// 	id[0] = item.pos[0] + (l[0] * library.multiplier / 2);
+		// 	id[1] = item.pos[1] + l[1] * library.multiplier;
+		// } else if (this.direction === 'down') {
+		// 	id[0] = item.pos[0] + (l[2] * library.multiplier / 2);
+		// 	id[1] = item.pos[1];
+		// }
+		id[0] = item.pos[0];
+		id[1] = item.pos[1];
 
 		if (Math.abs(id[0] - pd[0]) <= threshold && Math.abs(id[1] - pd[1]) <= threshold) {
 			var message;
@@ -155,6 +162,16 @@ Pim.prototype.checkCollide = function(obj, sensitivity, pd) {
 }
 Pim.prototype.goToLight = function() {
 	console.log('going to the light');
+	this.onDestiny = true;
+	this.destiny[0] = game.portal[0].pos[0];
+	this.destiny[1] = 0;
+
+	//start moving towards x
+	if (this.pos[0] < this.destiny[0]) {
+		this.direction = 'right';
+	} else {
+		this.direction = 'left';
+	}
 }
 
 

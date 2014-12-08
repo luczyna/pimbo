@@ -27,7 +27,9 @@ function gameUpdate() {
 	gameInfoUpdate();
 
 	//spawn things
-	createSchtuff();
+	if (game.running) {
+		createSchtuff();
+	}
 }
 
 function gameRender() {
@@ -163,18 +165,32 @@ function updatePim(num) {
 
 	if (pim.tick === 3) {
 		pim.tick = 0;
-		pim.countdown--;
+		if (!pim.onDestiny) {
+			pim.countdown--;
+		}
 		
 		if (pim.primed && pim.prime_countdown === 0) {
 			pim.primed = false;
-			pim.prime_countdown = 10;
 			console.log('disengaged pim');
+			pim.prime_countdown = 10;
+			if (pim.state !== 'pim') {
+				console.log('we got issue');
+			}
 		} else if (pim.primed) {
 			pim.prime_countdown--;
 		}
-		
 		if (pim.poof) {
 			pim.poof = false;
+			if (pim.onDestiny) {
+				pim.done = true;
+				//the pim when to a better place
+				game.pims.splice(num, 1);
+
+				if (!game.pims.length) {
+					//the game is over!
+					roundOver();
+				}
+			}
 		}
 	} else {
 		pim.tick++;
@@ -182,10 +198,10 @@ function updatePim(num) {
 
 	if (pim.countdown === 0 && pim.dancing) {
 		pim.dancing = false;
-		pim.direction = 'up';
+		// pim.direction = 'up';
 		//start directing the pim up to the light
-		// pim.goToLight();
-	} else if (pim.countdown === 0 && !pim.dancing) {
+		pim.goToLight();
+	} else if (pim.countdown === 0 && !pim.dancing && !pim.onDestiny) {
 		pim.changeDirection('random');
 	}
 	
@@ -203,6 +219,8 @@ function updatePim(num) {
 			if (potential <= 0) {
 				pim.pos[0] = 0;
 				pim.changeDirection('random');
+			} else if (pim.onDestiny && Math.abs(pim.destiny[0] - pim.pos[0]) <= 50 * library.multiplier)  {
+				pim.direction = 'up';
 			} else {
 				pim.pos[0] = potential;
 			}
@@ -212,6 +230,8 @@ function updatePim(num) {
 			if (potential >= limit) {
 				pim.pos[0] = limit;
 				pim.changeDirection('random');
+			} else if (pim.onDestiny && Math.abs(pim.destiny[0] - pim.pos[0]) <= 50 * library.multiplier)  {
+				pim.direction = 'up';
 			} else {
 				pim.pos[0] = potential;
 			}
@@ -220,6 +240,8 @@ function updatePim(num) {
 			if (potential <= 0) {
 				pim.pos[1] = 0;
 				pim.changeDirection('random');
+			} else if (pim.onDestiny && Math.abs(pim.destiny[1] - pim.pos[1]) <= 50 * library.multiplier)  {
+				pim.poof = true;
 			} else {
 				pim.pos[1] = potential;
 			}
