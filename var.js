@@ -46,11 +46,11 @@ var game = {
 	'pims': [],
 	'skulls': [],
 	'magic': [],
-		//[pims, skulls, magic, portals = 3]
-	'limit': [null, null, null, 3],
+		//[pims, skulls, magic, portals]
+	'limit': [null, null, null, 1],
 	'player': null,
 	'player_loop': null,
-	'loop': null
+	'loop': null,
 };
 
 var elements = {

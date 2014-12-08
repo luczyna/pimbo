@@ -81,6 +81,7 @@ function game_start() {
 	//start the time
 	game.start = new Date();
 	game.running = true;
+	initCreate();
 
 	//start the intervals
 	game.player_loop = window.setInterval(player_change_action, 5000);
@@ -139,6 +140,7 @@ function gameUpdate() {
 	gameInfoUpdate();
 
 	//spawn things
+	createSchtuff();
 }
 
 function gameRender() {
@@ -146,6 +148,9 @@ function gameRender() {
 	elements.c.clearRect(0, 0, library.canvas[0], library.canvas[1]);
 
 	//render skulls
+	for (var i = 0; i < game.skulls.length; i++) {
+		renderSkull(i);
+	}
 
 	//render magic
 
@@ -157,6 +162,11 @@ function gameRender() {
 	//render portal
 }
 function gameInfoUpdate() {
+	//skulls?
+	for (var i = 0; i < game.skulls.length; i++) {
+		updateSkull(i);
+	}
+
 	//magic?
 
 	//portal?
@@ -166,6 +176,10 @@ function gameInfoUpdate() {
 		updatePim(k);
 	}
 }
+
+
+
+
 
 function renderPim(num) {
 	//what pim should we be drawing?
@@ -214,6 +228,12 @@ function updatePim(num) {
 	if (pim.tick === 3) {
 		pim.tick = 0;
 		pim.countdown--;
+		if (pim.primed && pim.prime_countdown === 0) {
+			pim.primed = false;
+			console.log('disengaged pim');
+		} else if (pim.primed) {
+			pim.prime_countdown--;
+		}
 	} else {
 		pim.tick++;
 	}
@@ -270,4 +290,60 @@ function updatePim(num) {
 	} else {
 		//the pim is dancing
 	}
+}
+
+
+
+
+function renderSkull(num) {
+	var skull = game.skulls[num];
+	elements.c.drawImage(library.skull, 0, 0, library.skull_size[0], library.skull_size[1], skull.pos[0], skull.pos[1], library.skull_size[0] * library.multiplier, library.skull_size[1] * library.multiplier);
+}
+
+function updateSkull(num) {
+	var skull = game.skulls[num];
+	if (skull.countdown <= 0) {
+		//remove this skull from the skulls array
+		game.skulls.splice(num, 1);
+	} else {
+		skull.countdown--;
+	}
+}
+
+
+
+
+
+function initCreate() {
+	//pims
+	for (var i = 0; i < game.limit[0]; i++) {
+		god();
+	}
+
+	//portals
+}
+function createSchtuff() {
+	if (game.skulls.length < game.limit[1]) {
+		for (var i = 0; i < game.limit[1] - game.skulls.length; i++) {
+			if (Math.random() > 0.4) {
+				chance();
+			}
+		}
+	}
+
+	// if (game.pims.length < library.limit[0]) {
+	// 	for (var i = 0; i < library.limit[0] - game.pims.length; i++) {
+	// 		if (Math.randon() > 0.7) {
+	// 			god();
+	// 		}
+	// 	}
+	// }
+
+	// if (game.pims.length < library.limit[0]) {
+	// 	for (var i = 0; i < library.limit[0] - game.pims.length; i++) {
+	// 		if (Math.randon() > 0.7) {
+	// 			god();
+	// 		}
+	// 	}
+	// }
 }

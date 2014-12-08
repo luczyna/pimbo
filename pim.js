@@ -6,9 +6,8 @@ function Pim(color) {
 	this.direction = 'down';
 	this.countdown = (Math.floor(Math.random() * 6) + 1);
 	this.primed = false;
+	this.prime_countdown = 10;
 	this.dancing = false;
-	// var pox = Math.max(Math.floor(Math.random() * library.canvas[0]), library.canvas[0] - library.pim_size[2] * library.multiplier);
-	// var poy = Math.max(Math.floor(Math.random() * library.canvas[1]), library.canvas[1] - library.pim_size[3] * library.multiplier);
 	var pox = Math.floor(Math.random() * (library.canvas[0] - library.pim_size[2] * library.multiplier));
 	var poy = Math.floor(Math.random() * (library.canvas[1] - library.pim_size[3] * library.multiplier));
 	this.pos = [pox, poy];
@@ -71,4 +70,24 @@ function god() {
 	var c = library.data.color[amount % 3];
 	var p = new Pim(c);
 	game.pims.push(p);
+}
+
+
+
+
+
+
+function Skull() {
+	var pox = Math.floor(Math.random() * (library.canvas[0] - library.pim_size[2] * library.multiplier));
+	var poy = Math.floor(Math.random() * (library.canvas[1] - library.pim_size[3] * library.multiplier));
+	this.guid = Math.random();
+	this.countdown = (Math.floor(Math.random() * 50) + 100);
+	this.pos = [pox, poy];
+}
+
+
+function chance() {
+	//we're making a skull
+	var s = new Skull();
+	game.skulls.push(s);
 }
