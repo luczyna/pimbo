@@ -77,6 +77,7 @@ var elements = {
 	'play_again': document.getElementById('end-play'),
 	'help_button': document.getElementById('game-help'),
 	'info_close': document.getElementById('info-closer'),
+	'message': document.getElementById('mega-message'),
 
 	'highscore_open': document.getElementById('open-hs'),
 	'highscore_info': document.getElementById('info-highscore'),

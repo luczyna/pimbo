@@ -254,7 +254,7 @@ function showEnd() {
 	elements.play_again.addEventListener('click', playAgain, false);
 }
 function playAgain() {
-	//show the help
+	//hide the ending
 	elements.ending.classList.add('hidden');
 
 	//event listeners
@@ -262,8 +262,12 @@ function playAgain() {
 	elements.canvas.addEventListener('click', pushPim, false);
 	elements.help_button.addEventListener('click', showHelp, false);
 	elements.help_button.classList.add('helphover');
-
-	window.setTimeout(game_start, 2000);
+	
+	message('get ready', 2000);
+	window.setTimeout(function() {
+		game_start();
+		message('go!', 500);
+	}, 2000);
 }
 
 
@@ -281,8 +285,29 @@ function goToGame() {
 	elements.opening.classList.add('hidden');
 	elements.game.classList.remove('hidden');
 
+	message('get ready', 2500);
+
 	//start game
 	window.setTimeout( function() {
+		message('go!', 750);
 		game_start();
 	}, 3000);
+}
+
+
+
+function message(str, t) {
+	//clear the messages, incase
+	// elements.message.textContent = '';
+
+	//add a message to the screen
+	elements.message.textContent = str;
+
+	//show the message
+	elements.message.classList.remove('hidden');
+
+	//hide if after how many seconds?
+	window.setTimeout( function() {
+		elements.message.classList.add('hidden');		
+	}, t);
 }

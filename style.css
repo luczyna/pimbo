@@ -147,3 +147,14 @@ html {
 	padding-bottom: 0;
 }
 
+.mega-message {
+	position: absolute;;
+	top: 0;
+	bottom: 0;
+	font-size: 3em;
+	color: tomato;
+	text-align: center;
+	left: 0;
+	right: 0;
+}
+
