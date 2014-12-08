@@ -126,7 +126,8 @@ function roundOver() {
 	game.end = new Date();
 	//take into account the saved time from pauses later
 	var total = (game.end.getTime() - game.start.getTime()) / 1000 / 60;
-	var pretty = Math.floor(total) + ':' + Math.round(((Math.floor(total) - total) * 60));
+	var pretty = Math.floor(total) + ':';
+	pretty += 1 - (Math.ceil(total) - total);
 
 	library.data.rounds++;
 	var score = ( library.data.rounds * ((game.limit[0] / 3) + 3) * 1000 ) - (total * 60 * 2);
@@ -139,5 +140,56 @@ function roundOver() {
 
 
 //other stuff
+function showHelp() {
+	//pause game
+	game.running = false;
+	window.clearInterval(game.loop);
+	window.clearInterval(game.player_loop);
+
+	//note the time
+	game.end = new Date();
+
+	var total = (game.end.getTime() - game.start.getTime()) / 1000 / 60;
+	game.total += total;
+
+	//update help info
+	updateHelpInfo();
+
+	//show the help
+	elements.info.classList.remove('hidden');
+
+	//event listeners
+	elements.canvas.removeEventListener('click', pushPim, false);
+	elements.info_close.addEventListener('click', hideHelp, false);
+}
+function updateHelpInfo() {
+	var hs;
+	var prettyTime = Math.floor(game.total) + ':';
+	prettyTime += 1 - (Math.ceil(game.total) - game.total);
+
+	elements.info_round.textContent = library.data.rounds + 1;
+	elements.info_time.textContent = prettyTime;
+
+	if (library.data.highscore) {
+		hs = library.data.highscore;
+	} else {
+		hs = 'noop';
+	}
+	elements.highscore_info.textContent = hs;
+}
+function hideHelp() {
+	//hide the help
+	elements.info.classList.add('hidden');
+
+	//start the game again
+	game.running = true;
+	game.start = new Date();
+	game.player_loop = window.setInterval(player_change_action, 5000);
+	game.loop = window.setInterval(gameUpdate, 100);
+
+	//add event listeners
+	elements.info_close.removeEventListener('click', hideHelp, false);
+	elements.canvas.addEventListener('click', pushPim, false);
+}
 
 
