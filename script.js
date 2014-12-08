@@ -67,6 +67,8 @@ function init_info() {
 	// console.log('the initial action is: ' + game.player);
 	elements.player_action.textContent = game.player;
 
+	//add functionality to opening screen
+	prepareScreen();
 }
 
 
@@ -129,8 +131,9 @@ function roundOver() {
 	game.end = new Date();
 	//take into account the saved time from pauses later
 	var total = (game.end.getTime() - game.start.getTime()) / 1000 / 60;
-	var pretty = Math.floor(total) + ':';
-	pretty += 1 - (Math.ceil(total) - total);
+	game.total += total;
+	// var pretty = Math.floor(total) + ':';
+	// pretty += 1 - (Math.ceil(total) - total);
 
 	library.data.rounds++;
 	var score = ( library.data.rounds * ((game.limit[0] / 3) + 3) * 1000 ) - (total * 60 * 2);
@@ -140,8 +143,8 @@ function roundOver() {
 
 	showEnd();
 
-	var message = 'You completed the game! You cleared ' + game.limit[0] + ' pims in ' + pretty + '. This was round ' + library.data.rounds + ', so your score was ' + score + '.';
-	console.log(message);
+	// var message = 'You completed the game! You cleared ' + game.limit[0] + ' pims in ' + pretty + '. This was round ' + library.data.rounds + ', so your score was ' + score + '.';
+	// console.log(message);
 
 }
 
@@ -159,6 +162,8 @@ function checkLocalStorage() {
 	if (window.localStorage['pimbo']) {
 		var hs = Number(window.localStorage['pimbo']);
 		library.data.highscore = hs;
+		elements.highscore_open.textContent = hs;
+		elements.highscore_open.parentElement.classList.remove('hidden');
 	} else {
 		window.localStorage.setItem('pimbo', 0);
 	}
@@ -184,6 +189,7 @@ function showHelp() {
 
 	//show the help
 	elements.info.classList.remove('hidden');
+	elements.help_button.classList.remove('helphover');
 
 	//event listeners
 	elements.canvas.removeEventListener('click', pushPim, false);
@@ -208,6 +214,7 @@ function updateHelpInfo() {
 function hideHelp() {
 	//hide the help
 	elements.info.classList.add('hidden');
+	elements.help_button.classList.add('helphover');
 
 	//start the game again
 	game.running = true;
@@ -226,15 +233,20 @@ function hideHelp() {
 
 function showEnd() {
 	//update ending info
+
 	// elements.end_message.textContent = '';
 	elements.end_ghosts.textContent = game.limit[0] + ' pims';
-	elements.end_time.textContent = game.total + ' seconds';
+	elements.end_time.textContent = (game.total * 60) + ' seconds';
 	elements.end_score.textContent = game.score;
 	elements.highscore_end.textContent = library.data.highscore;
+	elements.highscore_end.parentElement.classList.remove('hidden');
 
 
 	//show the help
-	elements.ending.classList.remove('hidden');
+	elements.help_button.classList.remove('helphover');
+	window.setTimeout(function() {
+		elements.ending.classList.remove('hidden');
+	}, 500);
 
 	//event listeners
 	elements.canvas.removeEventListener('click', pushPim, false);
@@ -249,7 +261,28 @@ function playAgain() {
 	elements.play_again.removeEventListener('click', playAgain, false);
 	elements.canvas.addEventListener('click', pushPim, false);
 	elements.help_button.addEventListener('click', showHelp, false);
+	elements.help_button.classList.add('helphover');
 
 	window.setTimeout(game_start, 2000);
 }
 
+
+
+
+function prepareScreen() {
+	//set the tone, can we play?
+	// if ()
+
+	//event listeners
+	elements.play.addEventListener('click', goToGame, false);
+}
+function goToGame() {
+	//hide opening, show game
+	elements.opening.classList.add('hidden');
+	elements.game.classList.remove('hidden');
+
+	//start game
+	window.setTimeout( function() {
+		game_start();
+	}, 3000);
+}
