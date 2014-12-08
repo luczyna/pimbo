@@ -55,6 +55,12 @@ function init_loadingImages() {
 	library.portal.src = 'images/portal.svg';
 	library.poof.src = 'images/poof.svg';
 	library.skull.src = 'images/skull.svg';
+
+	library.ghost_sound.src = 'track/Ghost_01.wav';
+	library.zombie_sound.src = 'track/Action-02.wav';
+	library.transform_sound.src = 'track/Powerup_01.wav';
+	library.portal_sound.src = 'track/Portal-01.wav';
+	library.player_sound.src = 'track/Function-Change-01.wav';
 }
 
 function init_info() {

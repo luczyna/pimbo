@@ -16,7 +16,8 @@ function player_change_action() {
 	//change the action
 	game.player = options[choice];
 	// console.log('the new action is: ' + game.player);
-	elements.player_action.textContent = game.player; 
+	elements.player_action.textContent = game.player;
+	playMusic(library.player_sound);
 }
 
 function gameUpdate() {
@@ -173,7 +174,7 @@ function updatePim(num) {
 			pim.primed = false;
 			console.log('disengaged pim');
 			pim.prime_countdown = 10;
-			if (pim.state !== 'pim') {
+			if (pim.state === 'pim') {
 				console.log('we got issue');
 			}
 		} else if (pim.primed) {
@@ -184,8 +185,8 @@ function updatePim(num) {
 			if (pim.onDestiny) {
 				pim.done = true;
 				//the pim when to a better place
+				playMusic(library.portal_sound);
 				game.pims.splice(num, 1);
-
 				if (!game.pims.length) {
 					//the game is over!
 					roundOver();
@@ -340,6 +341,15 @@ function updatePortal() {
 		portal.tick = 0;
 	} else {
 		portal.tick++;
+	}
+}
+
+
+
+
+function playMusic(what) {
+	if (library.data.music) {
+		what.play();
 	}
 }
 

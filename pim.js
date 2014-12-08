@@ -56,6 +56,11 @@ Pim.prototype.changeDirection = function(cause) {
 			else if (current === 'right') { this.direction = 'up'; }
 		}
 		this.primed = true;
+		if (this.state === 'ghost') {
+			playMusic(library.ghost_sound);
+		} else if (this.state === 'zombie') {
+			playMusic(library.zombie_sound);
+		}
 		console.log('changed direction, thanks human');
 	}
 
@@ -149,6 +154,7 @@ Pim.prototype.checkCollide = function(obj, sensitivity, pd) {
 				this.state = 'pim';
 				this.dancing = true;
 			}
+			playMusic(library.transform_sound);
 			this.countdown = (Math.floor(Math.random() * 6) + 1);
 			this.primed = false;
 			this.prime_countdown = 10;

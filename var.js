@@ -7,7 +7,11 @@ var library = {
 	'skull': new Image(),
 
 	//music
-	'ambient': 'huh',
+	'ghost_sound': new Audio(),
+	'zombie_sound': new Audio(),
+	'transform_sound': new Audio(),
+	'portal_sound': new Audio(),
+	'player_sound': new Audio(),
 
 	//ratios
 	'scr': [],
@@ -25,7 +29,7 @@ var library = {
 		'poop': false,
 		'highscore': null,
 		'rounds': 0,
-		'music': false,
+		'music': true,
 		'player': ['reverse', 'clockwise', 'counter-clockwise'],
 		'color': ['cyan', 'magenta', 'yellow']
 	}
