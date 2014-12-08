@@ -7,6 +7,7 @@ function Pim(color) {
 	this.countdown = (Math.floor(Math.random() * 6) + 1);
 	this.primed = false;
 	this.prime_countdown = 10;
+	this.poof = false,
 	this.dancing = false;
 	var pox = Math.floor(Math.random() * (library.canvas[0] - library.pim_size[2] * library.multiplier));
 	var poy = Math.floor(Math.random() * (library.canvas[1] - library.pim_size[3] * library.multiplier));
@@ -58,6 +59,60 @@ Pim.prototype.changeDirection = function(cause) {
 	//complete it by starting a new countdown
 	this.countdown = (Math.floor(Math.random() * 6) + 1);
 }
+Pim.prototype.collide = function() {
+	var pd;
+
+	if (this.direction === 'left') { pd = this.pos[0]; } else 
+	if (this.direction === 'right') {pd = this.pos[0] + library.pim_size[2] * library.multiplier; } else
+	if (this.direction === 'up') { pd = this.pos[1]; } else
+	if (this.direction === 'down') {pd = this.pos[1] + library.pim_size[3] * library.multiplier; }
+
+	//check for skulls
+	if (this.state === 'ghost') {
+		for (var i = 0; i < game.skulls.length; i++) {
+			var skull = game.skulls[i];
+			var sd, collect = false, threshold = 5;
+			if (this.direction === 'left') {
+				// sd = skull.pos[0] + library.skull_size[0] * library.multiplier;
+				sd = skull.pos[0];
+				if (Math.abs(sd - pd) <= threshold) {
+					collect = true;
+				}
+			} else if (this.direction === 'right') {
+				sd = skull.pos[0];
+				if (Math.abs(sd - pd) <= threshold) {
+					collect = true;
+				}
+			} else if (this.direction === 'up') {
+				// sd = skull.pos[1] + library.skull_size[1] * library.multiplier;
+				sd = skull.pos[1];
+				if (Math.abs(sd - pd) <= threshold) {
+					collect = true;
+				}
+			} else if (this.direction === 'down') {
+				sd = skull.pos[1];
+				if (Math.abs(sd - pd) <= threshold) {
+					collect = true;
+				}
+			}
+
+			if (collect) {
+				//this pim goes to the next stage!
+				this.state = 'zombie';
+				this.countdown = (Math.floor(Math.random() * 6) + 1);
+				this.primed = false;
+				this.prime_countdown = 10;
+				this.tick = 0;
+				this.poof = true;
+
+				//this skull goes away
+				game.skulls.splice(i, 1);
+			}
+		} 
+	}
+
+	//check for magic
+}
 Pim.prototype.goToLight = function() {
 	console.log('going to the light');
 }
@@ -97,6 +152,26 @@ function chance() {
 
 
 
+function Magic(color) {
+	this.color = color;
+	this.tick = 0;
+	this.countdown = (Math.floor(Math.random() * 6) + 10);
+	var pox = Math.floor(Math.random() * (library.canvas[0] - library.magic_size[2] * library.multiplier));
+	var poy = Math.floor(Math.random() * (library.canvas[1] - library.magic_size[3] * library.multiplier));
+	this.pos = [pox, poy];
+}
+
+function fate() {
+	//we're making magic
+	var amount = game.magic.length;
+	var c = library.data.color[amount % 3];
+	var m = new Magic(c);
+	game.magic.push(m);
+}
+
+
+
+
 
 
 function pushPim(e) {
@@ -127,10 +202,4 @@ function pushPim(e) {
 			pim.changeDirection('player');
 		}
 	}
-
-	// if (pimsTouched.length) {
-	// 	for (var j = 0; j < pimsTouched.length; j++) {
-	// 		var pim = game.pims[pimsTouched[j]];
-	// 	}
-	// }
 }

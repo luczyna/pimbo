@@ -105,8 +105,8 @@ function reset_game_info() {
 	game.magic.length = 0;
 	
 	game.limit[0] = game.round + 3;
-	game.limit[1] = game.round + 2;
-	game.limit[2] = Math.floor(Math.random * 5) + game.round;
+	game.limit[1] = game.round + 5;
+	game.limit[2] = Math.floor(Math.random * 5) + game.round + 10;
 
 	game.player = library.data.player[Math.floor(Math.random() * 3)];
 	window.clearInterval(game.player_countdown);
@@ -184,42 +184,56 @@ function gameInfoUpdate() {
 
 function renderPim(num) {
 	//what pim should we be drawing?
-	//x depends on c(olour) and t(ick)
-	//y depends on s(tate) and d(irection)
-	var c, s, d, t;
-	var sx, sy, dx, dy;
-	var param;
 	var pim = game.pims[num];
-
-	if (pim.color === 'cyan') {	c = 1; } else
-	if (pim.color === 'magenta') { c = 0; } else
-	if (pim.color === 'yellow') { c = 2; }
-
-	if (pim.state === 'ghost') { s = 3; } else
-	if (pim.state === 'zombie') { s = 2; } else
-	if (pim.state === 'pim' && pim.dancing) { s = 0; } else
-	if (pim.state === 'ghost') { s = 1; }
-
-	if (pim.direction === 'right') { d = 0; } else
-	if (pim.direction === 'left') { d = 1; } else
-	if (pim.direction === 'down') { d = 2; } else
-	if (pim.direction === 'up') { d = 3; }
-
-	t = pim.tick;
-	sx = (library.pim_size[2] * c * 4) + (t * library.pim_size[2]);
-	if (s) {
-		sy = library.pim_size[3] + ((s - 1) * library.pim_size[3] * 4) + (d * library.pim_size[3]);
+	if (pim.poof) {
+		elements.c.drawImage(
+			library.poof, 
+			pim.tick * library.poof_size[2], 
+			0, 
+			library.poof_size[2], 
+			library.poof_size[3],
+			pim.pos[0],
+			pim.pos[1],
+			library.poof_size[2] * library.multiplier, 
+			library.poof_size[3] * library.multiplier
+		);
 	} else {
-		//dancing pim1
-		sy = 0;
-	}
-	dx = library.pim_size[2] * library.multiplier;
-	dy = library.pim_size[3] * library.multiplier;
+		//x depends on c(olour) and t(ick)
+		//y depends on s(tate) and d(irection)
+		var c, s, d, t;
+		var sx, sy, dx, dy;
+		var param;
 
-	//image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight
-	param = [library.pim, sx, sy, library.pim_size[2], library.pim_size[3], pim.pos[0], pim.pos[1], dx, dy];
-	elements.c.drawImage(param[0], param[1], param[2], param[3], param[4], param[5], param[6], param[7], param[8]);
-	// console.log(param.join());
+		if (pim.color === 'cyan') {	c = 1; } else
+		if (pim.color === 'magenta') { c = 0; } else
+		if (pim.color === 'yellow') { c = 2; }
+
+		if (pim.state === 'ghost') { s = 3; } else
+		if (pim.state === 'zombie') { s = 2; } else
+		if (pim.state === 'pim' && pim.dancing) { s = 0; } else
+		if (pim.state === 'ghost') { s = 1; }
+
+		if (pim.direction === 'right') { d = 0; } else
+		if (pim.direction === 'left') { d = 1; } else
+		if (pim.direction === 'down') { d = 2; } else
+		if (pim.direction === 'up') { d = 3; }
+
+		t = pim.tick;
+		sx = (library.pim_size[2] * c * 4) + (t * library.pim_size[2]);
+		if (s) {
+			sy = library.pim_size[3] + ((s - 1) * library.pim_size[3] * 4) + (d * library.pim_size[3]);
+		} else {
+			//dancing pim1
+			sy = 0;
+		}
+		dx = library.pim_size[2] * library.multiplier;
+		dy = library.pim_size[3] * library.multiplier;
+
+		//image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight
+		param = [library.pim, sx, sy, library.pim_size[2], library.pim_size[3], pim.pos[0], pim.pos[1], dx, dy];
+		elements.c.drawImage(param[0], param[1], param[2], param[3], param[4], param[5], param[6], param[7], param[8]);
+		// console.log(param.join());
+	}
 }
 
 function updatePim(num) {
@@ -229,11 +243,17 @@ function updatePim(num) {
 	if (pim.tick === 3) {
 		pim.tick = 0;
 		pim.countdown--;
+		
 		if (pim.primed && pim.prime_countdown === 0) {
 			pim.primed = false;
+			pim.prime_countdown = 10;
 			console.log('disengaged pim');
 		} else if (pim.primed) {
 			pim.prime_countdown--;
+		}
+		
+		if (pim.poof) {
+			pim.poof = false;
 		}
 	} else {
 		pim.tick++;
@@ -251,6 +271,10 @@ function updatePim(num) {
 	if (pim.state === 'ghost') { rate = 1.5; } else
 	if (pim.state === 'zombie') { rate = 0.5; } else
 	if (pim.state === 'pim') { rate = 1.0; }
+
+	if (pim.primed) {
+		pim.collide();
+	}
 
 	if (!pim.dancing) {
 		if (pim.direction === 'left') {
@@ -303,12 +327,27 @@ function renderSkull(num) {
 
 function updateSkull(num) {
 	var skull = game.skulls[num];
-	if (skull.countdown <= 0) {
+	if (skull.countdown === 0) {
 		//remove this skull from the skulls array
 		game.skulls.splice(num, 1);
+		console.log('bye skull');
 	} else {
 		skull.countdown--;
 	}
+}
+
+
+
+
+
+function renderMagic(num) {
+	var magic = game.magic[num];
+
+	// elements.c.drawImage(library.skull, 0, 0, library.skull_size[0], library.skull_size[1], skull.pos[0], skull.pos[1], library.skull_size[0] * library.multiplier, library.skull_size[1] * library.multiplier);
+}
+
+function updateMagic(num) {
+	var magic = game.magic[num];
 }
 
 
@@ -327,25 +366,18 @@ function createSchtuff() {
 	//skulls
 	if (game.skulls.length < game.limit[1]) {
 		for (var i = 0; i < game.limit[1] - game.skulls.length; i++) {
-			if (Math.random() > 0.4) {
+			if (Math.random() > 0.5) {
 				chance();
 			}
 		}
 	}
 
-	// if (game.pims.length < library.limit[0]) {
-	// 	for (var i = 0; i < library.limit[0] - game.pims.length; i++) {
-	// 		if (Math.randon() > 0.7) {
-	// 			god();
-	// 		}
-	// 	}
-	// }
-
-	// if (game.pims.length < library.limit[0]) {
-	// 	for (var i = 0; i < library.limit[0] - game.pims.length; i++) {
-	// 		if (Math.randon() > 0.7) {
-	// 			god();
-	// 		}
-	// 	}
-	// }
+	//magic
+	if (game.magic.length < game.limit[2]) {
+		for (var j = 0; j < game.limit[2] - game.magic.length; j++) {
+			if (Math.random() > 0.25) {
+				fate();
+			}
+		}
+	}
 }
