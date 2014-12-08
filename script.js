@@ -88,6 +88,7 @@ function game_start() {
 	game.loop = window.setInterval(gameUpdate, 100);
 
 	//add event listeners
+	elements.canvas.addEventListener('click', pushPim, false);
 }
 
 function reset_game_info() {
@@ -323,6 +324,7 @@ function initCreate() {
 	//portals
 }
 function createSchtuff() {
+	//skulls
 	if (game.skulls.length < game.limit[1]) {
 		for (var i = 0; i < game.limit[1] - game.skulls.length; i++) {
 			if (Math.random() > 0.4) {

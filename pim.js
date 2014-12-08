@@ -51,7 +51,8 @@ Pim.prototype.changeDirection = function(cause) {
 			else if (current === 'left') { this.direction = 'down'; }
 			else if (current === 'right') { this.direction = 'up'; }
 		}
-		console.log('changed direction, thanks huamn');
+		this.primed = true;
+		console.log('changed direction, thanks human');
 	}
 
 	//complete it by starting a new countdown
@@ -90,4 +91,46 @@ function chance() {
 	//we're making a skull
 	var s = new Skull();
 	game.skulls.push(s);
+}
+
+
+
+
+
+
+
+function pushPim(e) {
+	// console.log(e);
+	var input = [];
+
+	//where did the mouse click?
+	input[0] = e.pageX - this.offsetLeft - (library.pim_size[2] / 2);
+	input[1] = e.pageY - this.offsetTop - (library.pim_size[3] / 2);
+	// console.log('this is where I clicked: ' + input[0] + ' ' + input[1]);
+	// elements.c.fillStyle = 'tomato';
+	// elements.c.fillRect(input[0], input[1], 100 * library.multiplier, 100 * library.multiplier);
+
+	//does this correlate with any pims?
+	for (var i = 0; i < game.pims.length; i++) {
+		var pim = game.pims[i];
+		var distx = pim.pos[0] - input[0];
+		var disty = pim.pos[1] - input[1];
+		// console.log('this is the distance for the ' + pim.color + ' pim: ' + distx + ' ' + disty);
+		// console.log(input.join() + ' >> ' + pim.pos.join());
+
+		if ( distx >= (-50 * library.multiplier) &&
+			distx <= (50 * library.multiplier) &&
+			disty >= (-50 * library.multiplier) &&
+			disty <= (50 * library.multiplier) ) {
+			// console.log('close enough!');
+			// pimsTouched.push(i);
+			pim.changeDirection('player');
+		}
+	}
+
+	// if (pimsTouched.length) {
+	// 	for (var j = 0; j < pimsTouched.length; j++) {
+	// 		var pim = game.pims[pimsTouched[j]];
+	// 	}
+	// }
 }
