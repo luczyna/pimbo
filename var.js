@@ -36,6 +36,7 @@ var game = {
 	'start': null,
 	'end': null,
 	'total': 0,
+	'score': 0,
 
 	//status
 	'running': false,
@@ -75,7 +76,7 @@ var elements = {
 	'play': document.getElementById('open-play'),
 	'play_again': document.getElementById('end-play'),
 	'help_button': document.getElementById('game-help'),
-	'info_close': document.getElementById('info-close'),
+	'info_close': document.getElementById('info-closer'),
 
 	'highscore_open': document.getElementById('open-hs'),
 	'highscore_info': document.getElementById('info-highscore'),

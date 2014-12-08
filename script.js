@@ -59,6 +59,7 @@ function init_loadingImages() {
 
 function init_info() {
 	//check localStorage
+	checkLocalStorage();
 
 	//set the player action
 	var playerRandom = Math.floor(Math.random() * 3);
@@ -88,12 +89,14 @@ function game_start() {
 	game.loop = window.setInterval(gameUpdate, 100);
 
 	//add event listeners
+	elements.help_button.addEventListener('click', showHelp, false);
 	elements.canvas.addEventListener('click', pushPim, false);
 }
 function reset_game_info() {
 	game.start = 0;
 	game.end = 0;
 	game.total = 0;
+	game.score = 0;
 
 	game.running = false;
 	game.finished = false;
@@ -131,6 +134,11 @@ function roundOver() {
 
 	library.data.rounds++;
 	var score = ( library.data.rounds * ((game.limit[0] / 3) + 3) * 1000 ) - (total * 60 * 2);
+	score = Math.round(score);
+	game.score = score;
+	checkHighscore(score);
+
+	showEnd();
 
 	var message = 'You completed the game! You cleared ' + game.limit[0] + ' pims in ' + pretty + '. This was round ' + library.data.rounds + ', so your score was ' + score + '.';
 	console.log(message);
@@ -140,6 +148,25 @@ function roundOver() {
 
 
 //other stuff
+function checkHighscore(num) {
+	if (num && num > library.data.highscore) {
+		library.data.highscore = num;
+		window.localStorage['pimbo'] = num;
+	}
+}
+function checkLocalStorage() {
+	//does the localStorage exist?
+	if (window.localStorage['pimbo']) {
+		var hs = Number(window.localStorage['pimbo']);
+		library.data.highscore = hs;
+	} else {
+		window.localStorage.setItem('pimbo', 0);
+	}
+}
+
+
+
+
 function showHelp() {
 	//pause game
 	game.running = false;
@@ -160,15 +187,16 @@ function showHelp() {
 
 	//event listeners
 	elements.canvas.removeEventListener('click', pushPim, false);
+	elements.help_button.removeEventListener('click', showHelp, false);
 	elements.info_close.addEventListener('click', hideHelp, false);
 }
 function updateHelpInfo() {
 	var hs;
 	var prettyTime = Math.floor(game.total) + ':';
-	prettyTime += 1 - (Math.ceil(game.total) - game.total);
+	prettyTime += 60 * (1 - (Math.ceil(game.total) - game.total));
 
 	elements.info_round.textContent = library.data.rounds + 1;
-	elements.info_time.textContent = prettyTime;
+	elements.info_time.textContent = Math.round(game.total * 60)+ ' seconds';
 
 	if (library.data.highscore) {
 		hs = library.data.highscore;
@@ -189,7 +217,39 @@ function hideHelp() {
 
 	//add event listeners
 	elements.info_close.removeEventListener('click', hideHelp, false);
+	elements.help_button.addEventListener('click', showHelp, false);
 	elements.canvas.addEventListener('click', pushPim, false);
 }
 
+
+
+
+function showEnd() {
+	//update ending info
+	// elements.end_message.textContent = '';
+	elements.end_ghosts.textContent = game.limit[0] + ' pims';
+	elements.end_time.textContent = game.total + ' seconds';
+	elements.end_score.textContent = game.score;
+	elements.highscore_end.textContent = library.data.highscore;
+
+
+	//show the help
+	elements.ending.classList.remove('hidden');
+
+	//event listeners
+	elements.canvas.removeEventListener('click', pushPim, false);
+	elements.help_button.removeEventListener('click', showHelp, false);
+	elements.play_again.addEventListener('click', playAgain, false);
+}
+function playAgain() {
+	//show the help
+	elements.ending.classList.add('hidden');
+
+	//event listeners
+	elements.play_again.removeEventListener('click', playAgain, false);
+	elements.canvas.addEventListener('click', pushPim, false);
+	elements.help_button.addEventListener('click', showHelp, false);
+
+	window.setTimeout(game_start, 2000);
+}
 
