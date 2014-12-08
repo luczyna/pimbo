@@ -16,7 +16,7 @@ html {
 }
 
 .button {
-	background: tomato;
+	background: rgb(252, 104, 77);
 	padding: 2%;
 	color: white;
 	-o-transition: background 0.3s ease-out;
@@ -26,7 +26,7 @@ html {
 	transition: background 0.3s ease-out;
 }
 .button:hover {
-	background: lime;
+	background: rgb(240, 47, 2);
 }
 .hidden {
 	display: none;
@@ -50,18 +50,19 @@ html {
 	padding: 1em 0 0;
 }
 .game canvas {
-	background: #404040;
+	background: #404040 url('images/background.jpg');
 	display: block;
 	margin: 0 auto;
 }
 .game .help {
+	background: rgb(70, 242, 203);
+	border: 3px white solid;
 	position: absolute;
-	top: 0;
-	right: 1em;
-	padding: 0.5em;
-	margin: 0;
-	background: lime;
 	font-size: 1.3em;
+	padding: 0.5em;
+	right: 1em;
+	top: -3px;
+	margin: 0;
 }
 .game .helphover {
 	cursor: pointer;
@@ -72,17 +73,19 @@ html {
 	transition: background 0.2s ease-in;
 }
 .game .helphover:hover {
-	background: forestgreen;
+	background: rgb(32, 194, 157);
 }
 .game .action {
 	position: absolute;
 	bottom: 0em;
 	left: 0;
 	right: 0;
-	margin: 0 auto;
 	width: 50%;
-	background: tomato;
+	margin: 0 auto;
+	color: #f3f3f3;
 	text-align: center;
+	background: rgb(147, 28, 7);
+	box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -123,10 +126,12 @@ html {
 }
 
 .end {
+	background: rgb(13, 13, 157);
+	color: white;
+	box-shadow: 7px 8px 5px rgba(0, 0, 0, 0.2);
 	position: absolute;
 	max-width: 40em;
 	padding: 2em;
-	background: blue;
 	margin: 10% auto 0;
 	top: 0;
 	left: 0;
