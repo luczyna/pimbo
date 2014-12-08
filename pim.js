@@ -60,58 +60,98 @@ Pim.prototype.changeDirection = function(cause) {
 	this.countdown = (Math.floor(Math.random() * 6) + 1);
 }
 Pim.prototype.collide = function() {
-	var pd;
+	var pd = [];
 
-	if (this.direction === 'left') { pd = this.pos[0]; } else 
-	if (this.direction === 'right') {pd = this.pos[0] + library.pim_size[2] * library.multiplier; } else
-	if (this.direction === 'up') { pd = this.pos[1]; } else
-	if (this.direction === 'down') {pd = this.pos[1] + library.pim_size[3] * library.multiplier; }
+	if (this.direction === 'left') {
+		pd[0] = this.pos[0];
+		pd[1] = this.pos[1] + (library.pim_size[3] * library.multiplier / 2);
+	} else if (this.direction === 'right') {
+		pd[0] = this.pos[0] + library.pim_size[2] * library.multiplier;
+		pd[1] = this.pos[1] + (library.pim_size[3] * library.multiplier / 2);
+	} else if (this.direction === 'up') { 
+		pd[0] = this.pos[0] + (library.pim_size[2] * library.multiplier / 2);
+		pd[1] = this.pos[1];
+	} else if (this.direction === 'down') {
+		pd[0] = this.pos[0] + (library.pim_size[2] * library.multiplier / 2);
+		pd[1] = this.pos[1] + library.pim_size[2] * library.multiplier;
+	}
 
 	//check for skulls
 	if (this.state === 'ghost') {
-		for (var i = 0; i < game.skulls.length; i++) {
-			var skull = game.skulls[i];
-			var sd, collect = false, threshold = 5;
-			if (this.direction === 'left') {
-				// sd = skull.pos[0] + library.skull_size[0] * library.multiplier;
-				sd = skull.pos[0];
-				if (Math.abs(sd - pd) <= threshold) {
-					collect = true;
-				}
-			} else if (this.direction === 'right') {
-				sd = skull.pos[0];
-				if (Math.abs(sd - pd) <= threshold) {
-					collect = true;
-				}
-			} else if (this.direction === 'up') {
-				// sd = skull.pos[1] + library.skull_size[1] * library.multiplier;
-				sd = skull.pos[1];
-				if (Math.abs(sd - pd) <= threshold) {
-					collect = true;
-				}
-			} else if (this.direction === 'down') {
-				sd = skull.pos[1];
-				if (Math.abs(sd - pd) <= threshold) {
-					collect = true;
-				}
-			}
-
-			if (collect) {
-				//this pim goes to the next stage!
-				this.state = 'zombie';
-				this.countdown = (Math.floor(Math.random() * 6) + 1);
-				this.primed = false;
-				this.prime_countdown = 10;
-				this.tick = 0;
-				this.poof = true;
-
-				//this skull goes away
-				game.skulls.splice(i, 1);
-			}
-		} 
+		this.checkCollide('skulls', 20, pd);
+	} else if (this.state === 'zombie') {
+		this.checkCollide('magic', 50, pd);
 	}
 
 	//check for magic
+}
+Pim.prototype.checkCollide = function(obj, sensitivity, pd) {
+	//pd is the Pim Distance/Origin value, like it's left or right most point
+	//obj could be skulls or magic
+	var check = game[obj];
+	var threshold = sensitivity;
+	//we need a reference to the correct image in the library
+	var l = [];
+	if (obj === 'skulls') { 
+		l[0] = library.skull_size[0];
+		l[1] = library.skull_size[1];
+	} else {
+		l[0] = library.magic_size[2];
+		l[1] = library.magic_size[3];
+	}
+
+	//now we go through each of the object items
+	for (var i = 0; i < check.length; i++) {
+		var item = check[i];
+		var id = [], collect = false;
+
+		if (this.direction === 'left') {
+			id[0] = item.pos[0] + l[0] * library.multiplier;
+			id[1] = item.pos[1] + (l[1] * library.multiplier / 2);
+		} else if (this.direction === 'right') {
+			id[0] = item.pos[0];
+			id[1] = item.pos[1] + (l[1] * library.multiplier / 2);
+		} else if (this.direction === 'up') { 
+			id[0] = item.pos[0] + (l[0] * library.multiplier / 2);
+			id[1] = item.pos[1] + l[1] * library.multiplier;
+		} else if (this.direction === 'down') {
+			id[0] = item.pos[0] + (l[2] * library.multiplier / 2);
+			id[1] = item.pos[1];
+		}
+
+		if (Math.abs(id[0] - pd[0]) <= threshold && Math.abs(id[1] - pd[1]) <= threshold) {
+			var message;
+			if (this.state === 'zombie' && (this.color === item.color)) {
+				//the zombie interacted with the correct color magic
+				message = 'The ' + this.color + ' pim going ' + this.direction + ' touched the ' + item.color + ' magic. The pim was at ' + pd + ' the magic was at ' + id + '.';
+				console.log(message);
+				collect = true;
+			} else if (this.state === 'ghost') {
+				//the ghost can find any skull
+				message = 'The ' + this.color + ' ghost going ' + this.direction + ' touched the skull at ' + id + '. The pim was at ' + pd + ' the skull had a guid of ' + item.guid + '.';
+				console.log(message);
+				collect = true;
+			}
+		}
+
+		if (collect) {
+			//this pim goes to the next stage!
+			if (this.state === 'ghost') {
+				this.state = 'zombie';
+			} else if (this.state === 'zombie') {
+				this.state = 'pim';
+				this.dancing = true;
+			}
+			this.countdown = (Math.floor(Math.random() * 6) + 1);
+			this.primed = false;
+			this.prime_countdown = 10;
+			this.tick = 0;
+			this.poof = true;
+
+			//this item goes away
+			check.splice(i, 1);
+		}
+	}
 }
 Pim.prototype.goToLight = function() {
 	console.log('going to the light');

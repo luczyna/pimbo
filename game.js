@@ -133,7 +133,7 @@ function renderPim(num) {
 		if (pim.state === 'ghost') { s = 3; } else
 		if (pim.state === 'zombie') { s = 2; } else
 		if (pim.state === 'pim' && pim.dancing) { s = 0; } else
-		if (pim.state === 'ghost') { s = 1; }
+		if (pim.state === 'pim') { s = 1; }
 
 		if (pim.direction === 'right') { d = 0; } else
 		if (pim.direction === 'left') { d = 1; } else
@@ -234,7 +234,7 @@ function updatePim(num) {
 			}
 		}
 	} else {
-		//the pim is dancing
+		//the pim is dancing, don't move him
 	}
 }
 
