@@ -40,13 +40,17 @@ function gameRender() {
 	}
 
 	//render magic
+	for (var j = 0; j < game.magic.length; j++) {
+		renderMagic(j);
+	}
+
+	//render portal
+	renderPortal();
 
 	//render pims
 	for (var k = 0; k < game.pims.length; k++) {
 		renderPim(k);
 	}
-
-	//render portal
 }
 function gameInfoUpdate() {
 	//skulls?
@@ -55,13 +59,45 @@ function gameInfoUpdate() {
 	}
 
 	//magic?
-
-	//portal?
+	for (var j = 0; j < game.magic.length; j++) {
+		updateMagic(j);
+	}
 
 	//pims?
 	for (var k = 0; k < game.pims.length; k++) {
 		updatePim(k);
 	}
+
+	//portal?
+	updatePortal();
+}
+function createSchtuff() {
+	//skulls
+	if (game.skulls.length < game.limit[1]) {
+		for (var i = 0; i < game.limit[1] - game.skulls.length; i++) {
+			if (Math.random() > 0.5) {
+				chance();
+			}
+		}
+	}
+
+	//magic
+	if (game.magic.length < game.limit[2]) {
+		for (var j = 0; j < game.limit[2] - game.magic.length; j++) {
+			if (Math.random() > 0.9) {
+				fate();
+			}
+		}
+	}
+}
+function initCreate() {
+	//pims
+	for (var i = 0; i < game.limit[0]; i++) {
+		god();
+	}
+
+	//portals
+	destination();
 }
 
 
@@ -121,7 +157,6 @@ function renderPim(num) {
 		// console.log(param.join());
 	}
 }
-
 function updatePim(num) {
 	var pim = game.pims[num];
 	var limit, potential, rate, movement = 10;
@@ -210,13 +245,12 @@ function renderSkull(num) {
 	var skull = game.skulls[num];
 	elements.c.drawImage(library.skull, 0, 0, library.skull_size[0], library.skull_size[1], skull.pos[0], skull.pos[1], library.skull_size[0] * library.multiplier, library.skull_size[1] * library.multiplier);
 }
-
 function updateSkull(num) {
 	var skull = game.skulls[num];
 	if (skull.countdown === 0) {
 		//remove this skull from the skulls array
 		game.skulls.splice(num, 1);
-		console.log('bye skull');
+		// console.log('bye skull');
 	} else {
 		skull.countdown--;
 	}
@@ -228,42 +262,69 @@ function updateSkull(num) {
 
 function renderMagic(num) {
 	var magic = game.magic[num];
+	var sx, sy, dw, dh;
 
-	// elements.c.drawImage(library.skull, 0, 0, library.skull_size[0], library.skull_size[1], skull.pos[0], skull.pos[1], library.skull_size[0] * library.multiplier, library.skull_size[1] * library.multiplier);
+	sx = magic.tick * library.magic_size[2];
+	if (magic.color === 'cyan') { sy = 0; } else
+	if (magic.color === 'yellow') { sy = 1; } else
+	if (magic.color === 'magenta') { sy = 2; }
+	sy *= library.magic_size[3];
+
+	dw = library.magic_size[2] * library.multiplier;
+	dh = library.magic_size[3] * library.multiplier;
+
+	elements.c.drawImage(library.magic, sx, sy, library.magic_size[2], library.magic_size[3], magic.pos[0], magic.pos[1], dw, dh);
+	// if (num === 3 && magic.tick === 2) {
+	// 	var show = [library.magic, sx, sy, library.magic_size[2], library.magic_size[3], magic.pos[0], magic.pos[1], dw, dh];
+	// 	console.log(show.join(', '));
+	// }
 }
-
 function updateMagic(num) {
 	var magic = game.magic[num];
-}
 
+	if (magic.tick === 3) {
+		magic.tick = 0;
 
-
-
-
-function initCreate() {
-	//pims
-	for (var i = 0; i < game.limit[0]; i++) {
-		god();
-	}
-
-	//portals
-}
-function createSchtuff() {
-	//skulls
-	if (game.skulls.length < game.limit[1]) {
-		for (var i = 0; i < game.limit[1] - game.skulls.length; i++) {
-			if (Math.random() > 0.5) {
-				chance();
-			}
+		if (magic.countdown === 0) {
+			//get rid of this magic
+			game.magic.splice(num, 1);
+			// console.log('bye magic');
+		} else {
+			magic.countdown--;
 		}
-	}
-
-	//magic
-	if (game.magic.length < game.limit[2]) {
-		for (var j = 0; j < game.limit[2] - game.magic.length; j++) {
-			if (Math.random() > 0.25) {
-				fate();
-			}
-		}
+	} else {
+		magic.tick++;
 	}
 }
+
+
+
+
+function renderPortal() {
+	var portal = game.portal[0];
+	var sx, sy, dw, dh;
+
+	sx = portal.tick * library.portal_size[2];
+	sy = 0;
+	dw = library.portal_size[2] * library.multiplier;
+	dh = library.portal_size[3] * library.multiplier;
+
+	elements.c.drawImage(library.portal, sx, sy, library.portal_size[2], library.portal_size[3], portal.pos[0], portal.pos[1], dw, dh);
+}
+function updatePortal() {
+	var portal = game.portal[0];
+
+	if (portal.tick === 3) {
+		portal.tick = 0;
+	} else {
+		portal.tick++;
+	}
+}
+
+
+
+
+
+
+
+

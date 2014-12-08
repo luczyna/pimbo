@@ -155,7 +155,7 @@ function chance() {
 function Magic(color) {
 	this.color = color;
 	this.tick = 0;
-	this.countdown = (Math.floor(Math.random() * 6) + 10);
+	this.countdown = (Math.floor(Math.random() * 30) + 15);
 	var pox = Math.floor(Math.random() * (library.canvas[0] - library.magic_size[2] * library.multiplier));
 	var poy = Math.floor(Math.random() * (library.canvas[1] - library.magic_size[3] * library.multiplier));
 	this.pos = [pox, poy];
@@ -169,6 +169,23 @@ function fate() {
 	game.magic.push(m);
 }
 
+
+
+
+
+function Portal() {
+	var pox, poy;
+
+	this.tick = 0;
+	pox = (library.canvas[0] / 2) - (library.portal_size[2] * library.multiplier) / 2;
+	poy = 0;
+	this.pos = [pox, poy];
+}
+
+function destination() {
+	var p = new Portal();
+	game.portal.push(p);
+}
 
 
 

@@ -106,7 +106,7 @@ function reset_game_info() {
 	
 	game.limit[0] = game.round + 3;
 	game.limit[1] = game.round + 5;
-	game.limit[2] = Math.floor(Math.random * 5) + game.round + 10;
+	game.limit[2] = Math.floor(Math.random() * 5) + game.round + 10;
 
 	window.clearInterval(game.loop);
 	window.clearInterval(game.player_loop);

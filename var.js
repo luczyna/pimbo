@@ -46,6 +46,7 @@ var game = {
 	'pims': [],
 	'skulls': [],
 	'magic': [],
+	'portal': [],
 		//[pims, skulls, magic, portals]
 	'limit': [null, null, null, 1],
 	'player': null,
