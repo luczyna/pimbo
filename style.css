@@ -19,6 +19,7 @@ html {
 	background: rgb(252, 104, 77);
 	padding: 2%;
 	color: white;
+	cursor: pointer;
 	-o-transition: background 0.3s ease-out;
 	-ms-transition: background 0.3s ease-out;
 	-moz-transition: background 0.3s ease-out;
@@ -113,6 +114,11 @@ html {
 }
 .current dl {
 	margin: 0;
+	display: inline;
+}
+.current .sound-toggle {
+	text-decoration: underline;
+	cursor: pointer;
 }
 .current dt, .current dd {
 	display: inline;

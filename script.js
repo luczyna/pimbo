@@ -75,6 +75,9 @@ function init_info() {
 
 	//add functionality to opening screen
 	prepareScreen();
+
+	//add sound control to the info context
+	elements.music.addEventListener('click', toggleSound, false);
 }
 
 
@@ -316,4 +319,14 @@ function message(str, t) {
 	window.setTimeout( function() {
 		elements.message.classList.add('hidden');		
 	}, t);
+}
+
+function toggleSound() {
+	if (library.data.music) {
+		library.data.music = false;
+		elements.music.textContent = 'sound is off';
+	} else {
+		library.data.music = true;
+		elements.music.textContent = 'sound is on';
+	}
 }

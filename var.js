@@ -82,6 +82,7 @@ var elements = {
 	'help_button': document.getElementById('game-help'),
 	'info_close': document.getElementById('info-closer'),
 	'message': document.getElementById('mega-message'),
+	'music': document.getElementById('sound-toggle'),
 
 	'highscore_open': document.getElementById('open-hs'),
 	'highscore_info': document.getElementById('info-highscore'),
