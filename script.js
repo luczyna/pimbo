@@ -245,7 +245,7 @@ function showEnd() {
 
 	// elements.end_message.textContent = '';
 	elements.end_ghosts.textContent = game.limit[0] + ' pims';
-	elements.end_time.textContent = (game.total * 60) + ' seconds';
+	elements.end_time.textContent = Math.round(game.total * 60) + ' seconds';
 	elements.end_score.textContent = game.score;
 	elements.highscore_end.textContent = library.data.highscore;
 	elements.highscore_end.parentElement.classList.remove('hidden');

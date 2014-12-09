@@ -65,7 +65,7 @@ Pim.prototype.changeDirection = function(cause) {
 	}
 
 	//complete it by starting a new countdown
-	this.countdown = (Math.floor(Math.random() * 6) + 1);
+	this.countdown = (Math.floor(Math.random() * 5) + 5);
 }
 Pim.prototype.collide = function() {
 	var pd = [];

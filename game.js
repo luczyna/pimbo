@@ -156,6 +156,18 @@ function renderPim(num) {
 
 		//image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight
 		param = [library.pim, sx, sy, library.pim_size[2], library.pim_size[3], pim.pos[0], pim.pos[1], dx, dy];
+		//if the pim is primed, then draw a 'box' behind them
+		if (pim.primed) {
+			// elements.c.fillStyle = 'rgba(255, 255, 255, 0.4)';
+			// elements.c.fillRect(pim.pos[0] + dx * 0.35, pim.pos[1] + dy * 0.35, dx * 0.5, dy * 0.5);
+			// elements.c.globalAlpha = 0.5;
+			// elements.c.drawImage(param[0], param[1], param[2], param[3], param[4], param[5] * 0.975, param[6] * 0.975, param[7] * 1.05, param[8] * 1.05);
+			// elements.c.globalAlpha = 1;
+
+			elements.c.fillStyle = '#f1f1f1';
+			elements.c.font = '2.5em Fira Mono, monospace';
+			elements.c.fillText('!', pim.pos[0] + dx / 2.5, pim.pos[1], dx);
+		}
 		elements.c.drawImage(param[0], param[1], param[2], param[3], param[4], param[5], param[6], param[7], param[8]);
 		// console.log(param.join());
 	}
