@@ -5,8 +5,9 @@ function init() {
 		init_loadingImages();
 		init_info();
 	} else {
-		console.log('poop')
+		// console.log('poop');
 		//can't play, stoppppp
+		uponFailure();
 	}
 }
 
@@ -22,11 +23,11 @@ function init_screens() {
 	library.canvas[1] = wy * 0.9;
 	var m;
 	if (wx < 400) {
-		m = 1;
+		m = 0.9;
 	} else if (wx >= 400 && wx < 1000) {
-		m = 1.5;
+		m = 1.0;
 	} else if (wx >= 1000 && wx < 1600) {
-		m = 1.75;
+		m = 1.5;
 	} else if (wx >= 1600) {
 		m = 2;
 	} else {
@@ -50,17 +51,27 @@ function init_screens() {
 }
 
 function init_loadingImages() {
+	var assets = [library.pim, library.magic, library.portal, library.poof, library.skull, library.bg];
+	var music = [library.ghost_sound, library.zombie_sound, library.transform_sound, library.portal_sound, library.player_sound];
 	library.pim.src = 'images/pimsheet.svg';
 	library.magic.src = 'images/magic.svg';
 	library.portal.src = 'images/portal.svg';
 	library.poof.src = 'images/poof.svg';
 	library.skull.src = 'images/skull.svg';
+	library.bg.src = 'images/background.jpg';
 
 	library.ghost_sound.src = 'track/Ghost_01.wav';
 	library.zombie_sound.src = 'track/Action-02.wav';
 	library.transform_sound.src = 'track/Powerup_01.wav';
 	library.portal_sound.src = 'track/Portal-01.wav';
 	library.player_sound.src = 'track/Function-Change-01.wav';
+
+	for (var i = 0; i < assets.length; i++) {
+		assets[i].addEventListener('load', finishedLoading, false);
+	}
+	for (var j = 0; j < music.length; j++) {
+		music[j].addEventListener('canplay', finishedLoading, false);
+	}
 }
 
 function init_info() {
@@ -78,6 +89,35 @@ function init_info() {
 
 	//add sound control to the info context
 	elements.music.addEventListener('click', toggleSound, false);
+}
+
+function prepareScreen() {
+	//event listeners
+	elements.play.addEventListener('click', goToGame, false);
+}
+function goToGame() {
+	//hide opening, show game
+	elements.opening.style.opacity = 0;
+	elements.opening.addEventListener('transitionend', goToGameScreen, false);
+}
+function goToGameScreen() {
+	elements.opening.removeEventListener('transitionend', goToGameScreen, false);
+	elements.opening.classList.add('hidden');
+	elements.game.classList.remove('hidden');
+	window.setTimeout(function() {
+		elements.game.style.opacity = 1;
+		elements.game.addEventListener('transitionend', prepGame, false);
+	}, 100);
+}
+function prepGame() {
+	console.log('the game should be starting');
+	elements.game.removeEventListener('transitionend', prepGame, false);
+	message('get ready', 2500);
+	//start game
+	window.setTimeout( function() {
+		message('go!', 750);
+		game_start();
+	}, 3000);
 }
 
 
@@ -282,26 +322,6 @@ function playAgain() {
 
 
 
-function prepareScreen() {
-	//set the tone, can we play?
-	// if ()
-
-	//event listeners
-	elements.play.addEventListener('click', goToGame, false);
-}
-function goToGame() {
-	//hide opening, show game
-	elements.opening.classList.add('hidden');
-	elements.game.classList.remove('hidden');
-
-	message('get ready', 2500);
-
-	//start game
-	window.setTimeout( function() {
-		message('go!', 750);
-		game_start();
-	}, 3000);
-}
 
 
 
@@ -330,3 +350,43 @@ function toggleSound() {
 		elements.music.textContent = 'sound is on';
 	}
 }
+
+
+
+
+
+function uponFailure() {
+	var fail = document.createElement('p');
+	fail.innerHTML = 'Sorry, this browser does not support <strong>canvas</strong>. You need canvas to play this game. Please consider another browser for your gaming pleasure.';
+	elements.loading.appendChild(fail);
+}
+
+function finishedLoading() {
+	// console.log(this + ' finished loading');
+	this.removeEventListener('load', finishedLoading, false);
+	library.assetsLoaded++;
+
+	if (library.assetsLoaded === library.totalAssets) {
+		allAssetsLoaded();
+	}
+}
+function allAssetsLoaded() {
+	//stop the bouncy ball
+	elements.ball.classList.remove('bouncy');
+
+	window.setTimeout(function() {
+		//fade the ball screen away
+		elements.loading.style.opacity = 0;
+		elements.loading.addEventListener('transitionend', showHomeScreen, false);
+	}, 500);
+}
+function showHomeScreen() {
+	elements.loading.removeEventListener('transitionend', showHomeScreen, false);
+	elements.loading.classList.add('hidden');
+	elements.opening.classList.remove('hidden');
+	//the fadeIn wasn't happening, it's all too fast
+	window.setTimeout(function() {
+		elements.opening.style.opacity = 1;
+	}, 100);
+}
+

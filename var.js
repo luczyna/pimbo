@@ -5,6 +5,7 @@ var library = {
 	'portal': new Image(),
 	'poof': new Image(),
 	'skull': new Image(),
+	'bg': new Image(),
 
 	//music
 	'ghost_sound': new Audio(),
@@ -12,6 +13,9 @@ var library = {
 	'transform_sound': new Audio(),
 	'portal_sound': new Audio(),
 	'player_sound': new Audio(),
+
+	'totalAssets': 11,
+	'assetsLoaded': 0,
 
 	//ratios
 	'scr': [],
@@ -60,6 +64,7 @@ var game = {
 };
 
 var elements = {
+	'loading': document.getElementById('loading-screen'),
 	'opening': document.getElementById('open-screen'),
 	'game': document.getElementById('game-screen'),
 	'ending': document.getElementById('end-screen'),
@@ -68,6 +73,8 @@ var elements = {
 	'player_action': document.getElementById('game-action'),
 	'canvas': document.getElementById('game-canvas'),
 	'c': null,
+
+	'ball': document.querySelector('.ball'),
 
 	'info_round': document.getElementById('info-round'),
 	'info_time': document.getElementById('info-time'),
@@ -87,5 +94,4 @@ var elements = {
 	'highscore_open': document.getElementById('open-hs'),
 	'highscore_info': document.getElementById('info-highscore'),
 	'highscore_end': document.getElementById('end-hs'),
-
 };

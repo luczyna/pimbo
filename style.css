@@ -33,6 +33,42 @@ html {
 	display: none;
 }
 
+.loading, .opening, .game, .info, .ending {
+	opacity: 0;
+	-o-transition: opacity 0.3s ease-in;
+	-ms-transition: opacity 0.3s ease-in;
+	-moz-transition: opacity 0.3s ease-in;
+	-webkit-transition: opacity 0.3s ease-in;
+	transition: opacity 0.3s ease-in;
+}
+
+
+.loading {
+	max-width: 30em;
+	margin: 0 auto;
+	padding: 15% 1% 0;
+	opacity: 1;
+}
+.ball {
+	background: tomato;
+	height: 2em;
+	width: 2em;
+	border-radius: 50%;
+	margin: 0 auto;
+	-o-transition: all 0.2s ease-out;
+	-ms-transition: all 0.2s ease-out;
+	-moz-transition: all 0.2s ease-out;
+	-webkit-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
+}
+.bouncy {
+	/* animations */
+	-webkit-animation: bounce 2s ease 0s infinite normal;
+	-moz-animation: bounce 2s ease 0s infinite normal;
+	-o-animation: bounce 2s ease 0s infinite normal;
+	animation: bounce 2s ease 0s infinite normal;
+}
+
 .opening {
 	max-width: 20em;
 	margin: 0 auto;
@@ -167,5 +203,38 @@ html {
 	text-align: center;
 	left: 0;
 	right: 0;
+}
+
+
+
+@-webkit-keyframes bounce {
+	0% { transform: translateY(1); }
+	10% { transform: scaleY(0.95); }
+	15% { transform: scaleY(1); }
+	30% { transform: translateY(-2em); background: rgb(231, 95, 71); }
+	35% { transform: translateY(-2em); }
+	40% { transform: scaleY(0.95); background: tomato;}
+ 	50% { transform: translateY(0em); }
+ 	55% { transform: scaleY(1); }
+}
+@-moz-keyframes bounce {
+	0% { transform: translateY(1); }
+	10% { transform: scaleY(0.95); }
+	15% { transform: scaleY(1); }
+	30% { transform: translateY(-2em); background: rgb(231, 95, 71); }
+	35% { transform: translateY(-2em); }
+	40% { transform: scaleY(0.95); background: tomato;}
+ 	50% { transform: translateY(0em); }
+ 	55% { transform: scaleY(1); }
+}
+@keyframes bounce {
+	0% { transform: translateY(1); }
+	10% { transform: scaleY(0.95); }
+	15% { transform: scaleY(1); }
+	30% { transform: translateY(-2em); background: rgb(231, 95, 71); }
+	35% { transform: translateY(-2em); }
+	40% { transform: scaleY(0.95); background: tomato;}
+ 	50% { transform: translateY(0em); }
+ 	55% { transform: scaleY(1); }
 }
 
