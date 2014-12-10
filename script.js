@@ -128,6 +128,7 @@ function prepGame() {
 function game_start() {
 	//clean everything up
 	elements.c.clearRect(0, 0, library.canvas[0], library.canvas[1]);
+	elements.c.globalAlpha = 1;
 	reset_game_info();
 
 	//start the time
@@ -191,10 +192,6 @@ function roundOver() {
 	checkHighscore(score);
 
 	showEnd();
-
-	// var message = 'You completed the game! You cleared ' + game.limit[0] + ' pims in ' + pretty + '. This was round ' + library.data.rounds + ', so your score was ' + score + '.';
-	// console.log(message);
-
 }
 
 
@@ -293,8 +290,9 @@ function showEnd() {
 
 	//show the help
 	elements.help_button.classList.remove('helphover');
+	elements.ending.classList.remove('hidden');
 	window.setTimeout(function() {
-		elements.ending.classList.remove('hidden');
+		elements.ending.style.opacity = 1;
 	}, 500);
 
 	//event listeners
@@ -304,7 +302,13 @@ function showEnd() {
 }
 function playAgain() {
 	//hide the ending
+	elements.ending.style.opacity = 0;
+	elements.ending.addEventListener('transitionend', showGameScreenAgain, false);
+}
+function showGameScreenAgain() {
+	this.removeEventListener('transitionend', showGameScreenAgain, false);
 	elements.ending.classList.add('hidden');
+
 
 	//event listeners
 	elements.play_again.removeEventListener('click', playAgain, false);
@@ -317,6 +321,7 @@ function playAgain() {
 		game_start();
 		message('go!', 500);
 	}, 2000);
+	
 }
 
 

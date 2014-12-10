@@ -33,7 +33,7 @@ html {
 	display: none;
 }
 
-.loading, .opening, .game, .info, .ending {
+.loading, .opening, .game, .info, .end {
 	opacity: 0;
 	-o-transition: opacity 0.3s ease-in;
 	-ms-transition: opacity 0.3s ease-in;
