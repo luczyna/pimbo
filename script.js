@@ -235,6 +235,9 @@ function showHelp() {
 
 	//show the help
 	elements.info.classList.remove('hidden');
+	window.setTimeout( function() {
+		elements.info.style.opacity = 1;
+	}, 100);
 	elements.help_button.classList.remove('helphover');
 
 	//event listeners
@@ -259,19 +262,30 @@ function updateHelpInfo() {
 }
 function hideHelp() {
 	//hide the help
-	elements.info.classList.add('hidden');
+	elements.info.style.opacity = 0;
+
+	//evnt listeners and stuff
 	elements.help_button.classList.add('helphover');
-
-	//start the game again
-	game.running = true;
-	game.start = new Date();
-	game.player_loop = window.setInterval(player_change_action, 5000);
-	game.loop = window.setInterval(gameUpdate, 100);
-
-	//add event listeners
 	elements.info_close.removeEventListener('click', hideHelp, false);
-	elements.help_button.addEventListener('click', showHelp, false);
-	elements.canvas.addEventListener('click', pushPim, false);
+	elements.info.addEventListener('transitionend', startGameAgain, false);
+
+}
+function startGameAgain() {
+	elements.info.removeEventListener('transitionend', startGameAgain, false);
+	elements.info.classList.add('hidden');
+	
+	window.setTimeout( function() {
+		//start the game again
+		game.running = true;
+		game.start = new Date();
+		game.player_loop = window.setInterval(player_change_action, 5000);
+		game.loop = window.setInterval(gameUpdate, 100);
+
+		//add event listeners
+		elements.help_button.addEventListener('click', showHelp, false);
+		elements.canvas.addEventListener('click', pushPim, false);
+
+	}, 200);
 }
 
 
@@ -288,7 +302,7 @@ function showEnd() {
 	elements.highscore_end.parentElement.classList.remove('hidden');
 
 
-	//show the help
+	//show the end
 	elements.help_button.classList.remove('helphover');
 	elements.ending.classList.remove('hidden');
 	window.setTimeout(function() {
