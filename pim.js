@@ -34,7 +34,7 @@ Pim.prototype.changeDirection = function(cause) {
 
 		var rando = Math.floor(Math.random() * 3);
 		this.direction = opt[rando];
-		// console.log('changed direction from ' + current + ' to ' + this.direction);
+		this.countdown = (Math.floor(Math.random() * 5) + 5);
 	} else if (cause === 'player') {
 		//what is the player action?
 		var p = game.player;
@@ -62,10 +62,10 @@ Pim.prototype.changeDirection = function(cause) {
 			playMusic(library.zombie_sound);
 		}
 		console.log('changed direction, thanks human');
+		//complete it by starting a new countdown
+		this.prime_countdown = 10;
 	}
 
-	//complete it by starting a new countdown
-	this.countdown = (Math.floor(Math.random() * 5) + 5);
 }
 Pim.prototype.collide = function() {
 	var pd = [];

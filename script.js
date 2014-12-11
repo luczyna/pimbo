@@ -159,8 +159,8 @@ function reset_game_info() {
 	game.magic.length = 0;
 	
 	game.limit[0] = game.round + 3;
-	game.limit[1] = game.round + 5;
-	game.limit[2] = Math.floor(Math.random() * 5) + game.round * 2 + 10 * 2;
+	game.limit[1] = game.round + 3;
+	game.limit[2] = Math.floor(Math.random() * 5) + game.round * 2 + 10;
 
 	window.clearInterval(game.loop);
 	window.clearInterval(game.player_loop);
