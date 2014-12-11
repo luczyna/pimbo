@@ -37,6 +37,9 @@ function gameRender() {
 	//clear it all
 	elements.c.clearRect(0, 0, library.canvas[0], library.canvas[1]);
 
+	//render portal
+	renderPortal();
+
 	//render skulls
 	for (var i = 0; i < game.skulls.length; i++) {
 		renderSkull(i);
@@ -46,9 +49,6 @@ function gameRender() {
 	for (var j = 0; j < game.magic.length; j++) {
 		renderMagic(j);
 	}
-
-	//render portal
-	renderPortal();
 
 	//render pims
 	for (var k = 0; k < game.pims.length; k++) {
@@ -226,13 +226,17 @@ function updatePim(num) {
 	}
 
 	if (!pim.dancing) {
-		if (pim.direction === 'left') {
+		if (
+			pim.onDestiny && 
+			Math.abs(pim.destiny[0] - pim.pos[0]) <= 50 * library.multiplier &&
+			(pim.direction === 'left' || pim.direction === 'right')
+		) {
+			pim.direction = 'up';
+		} else if (pim.direction === 'left') {
 			potential = pim.pos[0] - (movement * rate);
 			if (potential <= 0) {
 				pim.pos[0] = 0;
 				pim.changeDirection('random');
-			} else if (pim.onDestiny && Math.abs(pim.destiny[0] - pim.pos[0]) <= 50 * library.multiplier)  {
-				pim.direction = 'up';
 			} else {
 				pim.pos[0] = potential;
 			}
@@ -242,8 +246,6 @@ function updatePim(num) {
 			if (potential >= limit) {
 				pim.pos[0] = limit;
 				pim.changeDirection('random');
-			} else if (pim.onDestiny && Math.abs(pim.destiny[0] - pim.pos[0]) <= 50 * library.multiplier)  {
-				pim.direction = 'up';
 			} else {
 				pim.pos[0] = potential;
 			}

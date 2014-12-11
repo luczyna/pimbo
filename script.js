@@ -35,6 +35,9 @@ function init_screens() {
 	}
 	library.multiplier = m;
 
+	//set the message position
+	elements.message.style.top = library.scr[1] * 0.45 + 'px';
+
 	//test out canvas capability
 	elements.c = elements.canvas.getContext('2d');
 	var result;

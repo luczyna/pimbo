@@ -199,11 +199,11 @@ html {
 
 .mega-message {
 	position: absolute;;
-	top: 0;
 	bottom: 0;
 	font-size: 3em;
 	color: tomato;
 	text-align: center;
+	margin: 0;
 	left: 0;
 	right: 0;
 }

@@ -273,10 +273,11 @@ function pushPim(e) {
 		// console.log('this is the distance for the ' + pim.color + ' pim: ' + distx + ' ' + disty);
 		// console.log(input.join() + ' >> ' + pim.pos.join());
 
-		if ( distx >= (-50 * library.multiplier) &&
-			distx <= (50 * library.multiplier) &&
-			disty >= (-50 * library.multiplier) &&
-			disty <= (50 * library.multiplier) ) {
+		if ( distx >= (-50 * Math.round(library.multiplier)) &&
+			distx <= (50 * Math.round(library.multiplier)) &&
+			disty >= (-50 * Math.round(library.multiplier)) &&
+			disty <= (50 * Math.round(library.multiplier)) &&
+			pim.state !== 'pim') {
 			// console.log('close enough!');
 			// pimsTouched.push(i);
 			pim.changeDirection('player');
