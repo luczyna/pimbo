@@ -88,6 +88,8 @@ html {
 }
 .game canvas {
 	background: #404040 url('images/background.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
 	display: block;
 	margin: 0 auto;
 }
@@ -170,7 +172,7 @@ html {
 .end {
 	background: rgb(13, 13, 157);
 	color: white;
-	outline: 3px blue solid;
+	/*outline: 3px blue solid;*/
 	box-shadow: 7px 8px 5px rgba(0, 0, 0, 0.2);
 	position: absolute;
 	max-width: 40em;
