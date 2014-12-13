@@ -54,14 +54,16 @@ function init_screens() {
 }
 
 function init_loadingImages() {
-	var assets = [library.pim, library.magic, library.portal, library.poof, library.skull, library.bg];
+	var assets = [library.pim, library.magic, library.portal, library.poof, library.skull, library.bg, library.excla];
 	var music = [library.ghost_sound, library.zombie_sound, library.transform_sound, library.portal_sound, library.player_sound];
 	library.pim.src = 'images/pimsheet.svg';
 	library.magic.src = 'images/magic.svg';
 	library.portal.src = 'images/portal.svg';
 	library.poof.src = 'images/poof.svg';
 	library.skull.src = 'images/skull.svg';
+	// library.bg.src = 'images/bg2.svg';
 	library.bg.src = 'images/background.jpg';
+	library.excla.src = 'images/exclamation.svg';
 
 	library.ghost_sound.src = 'track/Ghost_01.wav';
 	library.zombie_sound.src = 'track/Action-02.wav';
@@ -408,6 +410,9 @@ function finishedLoading() {
 function allAssetsLoaded() {
 	//stop the bouncy ball
 	elements.ball.classList.remove('bouncy');
+
+	//set the canvas bg size
+	// elements.canvas.style.background = "#404040 url('images/bg2.svg') 0 0 auto " + library.bg_size[1] * library.multiplier + "px";
 
 	window.setTimeout(function() {
 		//fade the ball screen away

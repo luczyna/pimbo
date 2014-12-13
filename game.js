@@ -158,15 +158,26 @@ function renderPim(num) {
 		param = [library.pim, sx, sy, library.pim_size[2], library.pim_size[3], pim.pos[0], pim.pos[1], dx, dy];
 		//if the pim is primed, then draw a '!' above them
 		if (pim.primed) {
-			elements.c.fillStyle = '#f1f1f1';
-			elements.c.font = '2.5em Fira Mono, monospace';
+			// elements.c.fillStyle = '#f1f1f1';
+			// elements.c.font = '2.5em Fira Mono, monospace';
 			var offset;
 			if (pim.state === 'ghost') {
-				offset = pim.pos[1] + 10 * library.multiplier;
+				offset = pim.pos[1] + 17 - library.excla_size[1] * library.multiplier;
 			} else {
-				offset = pim.pos[1];
+				offset = pim.pos[1] - library.excla_size[1] * library.multiplier;
 			}
-			elements.c.fillText('!', pim.pos[0] + dx / 2.5, offset, dx);
+			elements.c.drawImage(
+				library.excla,
+				0,
+				0,
+				library.excla_size[0],
+				library.excla_size[1],
+				pim.pos[0] + dx / 2.5,
+				offset,
+				library.excla_size[0] * library.multiplier,
+				library.excla_size[1] * library.multiplier
+			);
+			// elements.c.fillText('!', pim.pos[0] + dx / 2.5, offset, dx);
 		}
 		elements.c.drawImage(param[0], param[1], param[2], param[3], param[4], param[5], param[6], param[7], param[8]);
 		// console.log(param.join());

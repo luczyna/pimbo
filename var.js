@@ -6,6 +6,7 @@ var library = {
 	'poof': new Image(),
 	'skull': new Image(),
 	'bg': new Image(),
+	'excla': new Image(),
 
 	//music
 	'ghost_sound': new Audio(),
@@ -14,7 +15,7 @@ var library = {
 	'portal_sound': new Audio(),
 	'player_sound': new Audio(),
 
-	'totalAssets': 11,
+	'totalAssets': 12,
 	'assetsLoaded': 0,
 
 	//ratios
@@ -27,6 +28,8 @@ var library = {
 	'portal_size': [288, 64, 72, 64],
 	'poof_size': [288, 96, 72, 96],
 	'skull_size': [64, 64],
+	'excla_size': [14, 32],
+	'bg_size': [100, 500],
 
 	//dataaa
 	'data': {
