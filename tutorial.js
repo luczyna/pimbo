@@ -17,7 +17,7 @@ var tutorial = {
 		['Priming doesn\'t last', 'The ghost will lose interest if left on it\'s own for too long. Clicking it again will <strong>prime</strong> it again.', 'next'],
 		//get it moving again
 		//++  4
-		['Direct the ghost', 'See the container at the bottom? It contains the keyword that determines what happens when you click the ghost. It changes every 5 seconds. Use this to direct the ghost to the <strong>skull</strong>', "game.pims[0].state === 'zombie'"],
+		['Direct the ghost', 'See the container at the bottom? It contains the keyword that determines what happens when you click the ghost. It changes every 5 seconds. Use this to direct the ghost to the <strong>skull</strong>.', "game.pims[0].state === 'zombie'"],
 		['Look! A zombie!', 'Now that the ghost collected a <strong>skull</strong>, it\'s turned into a zombie. It\'s on its way to becoming a full fledged pim again.', 'next'],
 		['Zombies need life.', 'Just like ghosts needed <strong>skulls</strong>, zombies will need <strong>life</strong> to become pims.', 'next'],
 		//spawn magic
@@ -26,9 +26,9 @@ var tutorial = {
 		//hold the dancing
 		//++  8
 		['Good job!', 'You helped the pim reach its true form. It\'s celebrating right now.', 'next'],
-		['Clear the board.', 'To win the round, you will need to clear the board by helping all the pims reach their true form. The faster you are, the more points you\'ll get at the end of the round.', 'next'],
 		//let the pim go
-		//++  10
+		//++  9
+		['Clear the board.', 'To win the round, you will need to clear the board by helping all the pims reach their true form. The faster you are, the more points you\'ll get at the end of the round.', 'next'],
 		['Going to the light', 'Pims finished will go to the light. Quite fitting.', 'again']
 		//query about playing the tutorial again
 	],
@@ -125,6 +125,15 @@ function showTutorialStep() {
 		checkTutorialStep();
 	} else if (next === 'again') {
 		//offer to repeat the tutorial
+		elements.tut_b.textContent = 'repeat?';
+		elements.tut_b.addEventListener('click', repeatTutorial, false);
+
+		//or take me to game play?
+		var button = document.createElement('p');
+		button.classList.add('button', 'gotogame');
+		button.textContent = 'start playing';
+		elements.tutorial.appendChild(button);
+		button.addEventListener('click', leaveTutorial, false);
 
 	} else {
 		//this is a check...
@@ -155,8 +164,9 @@ function checkTutorialStep() {
 			break;
 		case 2: 
 			console.log('step 2, added skull, stopped game loop and clicking pim ability');
-			toggleGameTutorialPlay('pause');
 			chance();
+			window.setTimeout(toggleGameTutorialPlay, 100);
+			// toggleGameTutorialPlay('pause');
 			break;
 		case 4: 
 			console.log('step 4, started game loop and added clicking pim ability');
@@ -166,9 +176,15 @@ function checkTutorialStep() {
 			console.log('step 5, removing pim clicking');
 			elements.canvas.removeEventListener('click', pushPim, false);
 			break;
+		case 6:
+			console.log('step 6, spawning magic, a lot of it');
+			for (var i = 0; i < 10; i++) {
+				fate();
+			}
+			break;
 		case 7:
-			console.log('step 7, spawning magic, adding click');
-			fate();
+			console.log('step 7, adding click');
+			// fate();
 			elements.canvas.addEventListener('click', pushPim, false);
 			break;
 		case 8:
@@ -176,12 +192,15 @@ function checkTutorialStep() {
 			elements.canvas.removeEventListener('click', pushPim, false);
 			game.pims[0].countdown = -1;
 			break;
-		case 10:
-			console.log('step 10, going to the light!');
-			game.pims[0].countdown = 0;
+		case 9:
+			console.log('step 9, going to the light!');
+			console.log(game.pims[0].countdown);
+			game.pims[0].countdown = 1;
+			console.log(game.pims[0].countdown);
 			break;
 		default:
 			console.log('moving along');
+			break;
 	}
 }
 function toggleGameTutorialPlay(play) {
@@ -235,4 +254,40 @@ function checkingCriteria() {
 		tutorial.next();
 		showTutorialStep();
 	}
+}
+
+function repeatTutorial() {
+	//clean up after yourself
+	this.removeEventListener('click', repeatTutorial, false);
+	var removeThis = this.parentNode.getElementsByTagName('p')[2];
+	this.parentNode.removeChild(removeThis);
+
+	//hide the tutorial breifly
+	elements.tutorial.classList.add('hidden');
+
+	//rewind
+	tutorial.step = 0;
+
+	//then start the tutorial
+	message('welcome to pimbo', 2500);
+	window.setTimeout( function() {
+		console.log('doing the tutorial');
+		tutorial_start();
+		showTutorialStep();
+	}, 3000);
+}
+function leaveTutorial() {
+	//clean up
+	this.removeEventListener('click', leaveTutorial, false);
+	this.parentNode.removeChild(this);
+	elements.tut_b.removeEventListener('click', repeatTutorial, false);
+
+	//hide the tutorial
+	elements.tutorial.classList.add('hidden');
+
+	//now start the game
+	message('good job, now have fun', 2000);
+	window.setTimeout( function() {
+		prepGame();
+	}, 3000);
 }

@@ -199,8 +199,9 @@ function updatePim(num) {
 				//the pim when to a better place
 				playMusic(library.portal_sound);
 				game.pims.splice(num, 1);
-				if (!game.pims.length) {
-					//the game is over!
+				if (!game.pims.length && game.limit[0] > 1) {
+					//the game is over! 
+					//and this wasn't the tutorial 
 					roundOver();
 				}
 			}

@@ -12,6 +12,7 @@ html {
 	margin: 0;
 	padding: 0;
 	font-family: 'Fira Mono', monospace;
+	-webkit-font-smoothing: antialiased;
 	position: relative;
 }
 
@@ -137,8 +138,16 @@ html {
 	padding: 1em;
 	margin: 0 auto;
 }
+.tutorial strong {
+	color: tomato;
+	/*text-decoration: underline;*/
+}
+.tutorial .gotogame {
+	float: left;
+}
 .tutorial .button {
 	text-align: right;
+	float: right;
 	-o-transition: all 2s ease-in;
 	-ms-transition: all 2s ease-in;
 	-moz-transition: all 2s ease-in;
