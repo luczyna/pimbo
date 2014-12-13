@@ -133,7 +133,7 @@ function game_start() {
 	//clean everything up
 	elements.c.clearRect(0, 0, library.canvas[0], library.canvas[1]);
 	elements.c.globalAlpha = 1;
-	reset_game_info();
+	reset_game_info('game');
 
 	//start the time
 	game.start = new Date();
@@ -148,7 +148,7 @@ function game_start() {
 	elements.help_button.addEventListener('click', showHelp, false);
 	elements.canvas.addEventListener('click', pushPim, false);
 }
-function reset_game_info() {
+function reset_game_info(forwhat) {
 	game.start = 0;
 	game.end = 0;
 	game.total = 0;
@@ -157,14 +157,26 @@ function reset_game_info() {
 	game.running = false;
 	game.finished = false;
 
-	game.round = library.data.rounds;
-	game.pims.length = 0;
-	game.skulls.length = 0;
-	game.magic.length = 0;
-	
-	game.limit[0] = game.round + 3;
-	game.limit[1] = game.round + 3;
-	game.limit[2] = Math.floor(Math.random() * 5) + game.round * 2 + 10;
+	if (forwhat === 'tutorial') {
+		// game.round = library.data.rounds;
+		game.pims.length = 0;
+		game.skulls.length = 0;
+		game.magic.length = 0;
+		
+		game.limit[0] = 1;
+		game.limit[1] = 0;
+		game.limit[2] = 0;
+	} else {
+		//it's for the game
+		game.round = library.data.rounds;
+		game.pims.length = 0;
+		game.skulls.length = 0;
+		game.magic.length = 0;
+		
+		game.limit[0] = game.round + 3;
+		game.limit[1] = game.round + 3;
+		game.limit[2] = Math.floor(Math.random() * 5) + game.round * 2 + 10;
+	}
 
 	window.clearInterval(game.loop);
 	window.clearInterval(game.player_loop);

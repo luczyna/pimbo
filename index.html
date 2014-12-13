@@ -15,7 +15,7 @@
 	<div class="opening hidden" id="open-screen">
 		<h1>Stuck in Pimbo</h1>
 		<p class="button" id="open-play">play</p>
-		<p class="button tutorial" id="open-tutorial">play</p>
+		<p class="button tutorial" id="open-tutorial">tutorial</p>
 		<p class="highscore hidden">highscore: <span id="open-hs"></span></p>
 	</div>
 
@@ -23,6 +23,11 @@
 		<canvas id="game-canvas"></canvas>
 		<p class="help helphover" id="game-help">?</p>
 		<p class="action" id="game-action">reverse</p>
+		<div class="tutorial hidden" id="tutorial">
+			<h2></h2>
+			<p></p>
+			<p class="button" id="tutorial-next">next</p>
+		</div>
 	</div>
 
 	<div class="info hidden" id="info-screen">
@@ -79,6 +84,7 @@
 	<script type="text/javascript" src="var.js"></script>
 	<script type="text/javascript" src="pim.js"></script>
 	<script type="text/javascript" src="game.js"></script>
+	<script type="text/javascript" src="tutorial.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

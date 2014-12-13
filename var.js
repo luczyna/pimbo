@@ -83,9 +83,14 @@ var elements = {
 	'end_ghosts': document.getElementById('end-ghost-count'),
 	'end_time': document.getElementById('end-time'),
 	'end_score': document.getElementById('end-score'),
+
+	'open_tutorial': document.getElementById('open-tutorial'),
+	'tutorial': document.getElementById('tutorial'),
+	'tut_h': this.tutorial.querySelector('h2'),
+	'tut_p': this.tutorial.querySelectorAll('p')[0],
+	'tut_b': this.tutorial.querySelectorAll('p')[1],
 	
 	'play': document.getElementById('open-play'),
-	'open_tutorial': document.getElementById('open-tutorial'),
 	'play_again': document.getElementById('end-play'),
 	'help_button': document.getElementById('game-help'),
 	'info_close': document.getElementById('info-closer'),

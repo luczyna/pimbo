@@ -126,6 +126,30 @@ html {
 	background: rgb(147, 28, 7);
 	box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
 }
+.game .tutorial {
+	background: rgba(0, 0, 0, 0.8);
+	color: white;
+	position: absolute;
+	top: 1em;
+	left: 0;
+	right: 0;
+	width: 80%;
+	padding: 1em;
+	margin: 0 auto;
+}
+.tutorial .button {
+	text-align: right;
+	-o-transition: all 2s ease-in;
+	-ms-transition: all 2s ease-in;
+	-moz-transition: all 2s ease-in;
+	-webkit-transition: all 2s ease-in;
+	transition: all 2s ease-in;
+	/* animations */
+	-webkit-animation: heyMeMe 2s ease 0s infinite normal;
+	-moz-animation: heyMeMe 2s ease 0s infinite normal;
+	-o-animation: heyMeMe 2s ease 0s infinite normal;
+	animation: heyMeMe 2s ease 0s infinite normal;
+}
 
 
 
@@ -239,5 +263,17 @@ html {
 	40% { transform: scaleY(0.95); background: tomato;}
  	50% { transform: translateY(0em); }
  	55% { transform: scaleY(1); }
+}
+
+@-webkit-keyframes heyMeMe {
+	0% { transform: translateY(0); }
+	10% { transform: translateY(-1em); }
+	15% { transform: translateY(0);}
+	30% { transform: translateY(-1em); }
+	45% { transform: translateY(0); }
+	60% { transform: translateY(-1em);}
+ 	75% { transform: translateY(0); }
+ 	90% { transform: translateY(-1em); }
+ 	95% { transform: translateY(0); }
 }
 
