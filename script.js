@@ -97,6 +97,7 @@ function init_info() {
 function prepareScreen() {
 	//event listeners
 	elements.play.addEventListener('click', goToGame, false);
+	elements.open_tutorial.addEventListener('click', accessTutorial, false);
 }
 function goToGame() {
 	//hide opening, show game

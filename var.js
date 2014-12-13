@@ -85,6 +85,7 @@ var elements = {
 	'end_score': document.getElementById('end-score'),
 	
 	'play': document.getElementById('open-play'),
+	'open_tutorial': document.getElementById('open-tutorial'),
 	'play_again': document.getElementById('end-play'),
 	'help_button': document.getElementById('game-help'),
 	'info_close': document.getElementById('info-closer'),
