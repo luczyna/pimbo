@@ -144,7 +144,7 @@ html {
 	/*text-decoration: underline;*/
 }
 .tutorial .gotogame {
-	float: left;
+	float: left !important;
 }
 .tutorial .button {
 	text-align: right;
