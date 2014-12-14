@@ -19,8 +19,10 @@ function init_screens() {
 		wy = window.innerHeight;
 	library.scr[0] = wx;
 	library.scr[1] = wy;
-	library.canvas[0] = wx * 0.95;
-	library.canvas[1] = wy * 0.95;
+	// library.canvas[0] = wx * 0.95;
+	// library.canvas[1] = wy * 0.95;
+	library.canvas[0] = wx;
+	library.canvas[1] = wy;
 	var m;
 	if (wx < 400) {
 		m = 0.75;

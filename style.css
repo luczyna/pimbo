@@ -85,7 +85,8 @@ html {
 
 
 .game {
-	padding: 1em 0 0;
+	/*padding: 1em 0 0;*/
+	padding: 0;
 }
 .game canvas {
 	background: #404040 url('images/background.jpg');
@@ -97,12 +98,12 @@ html {
 }
 .game .help {
 	background: rgb(70, 242, 203);
-	border: 3px white solid;
+	/*border: 3px white solid;*/
 	position: absolute;
 	font-size: 1.3em;
 	padding: 0.5em;
 	right: 1em;
-	top: -3px;
+	top: 0;
 	margin: 0;
 }
 .game .helphover {
