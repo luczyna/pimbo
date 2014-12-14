@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Pimbo</title>
+    <meta name="description" content="Stuck in Pimbo: an HTML5 canvas game about Pims and Ghosts">
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'>
+    <style type="text/css">html{margin:0;padding:0;box-sizing:border-box}*,:after,:before{box-sizing:inherit}.wrap{margin:0;padding:0;font-family:'Fira Mono',monospace;-webkit-font-smoothing:antialiased;position:relative}.button{background:#fc684d;padding:2%;color:#fff;cursor:pointer;-o-transition:background .3s ease-out;-ms-transition:background .3s ease-out;-moz-transition:background .3s ease-out;-webkit-transition:background .3s ease-out;transition:background .3s ease-out}.button:hover{background:#f02f02}.hidden{display:none}.end,.game,.info,.loading,.opening{opacity:0;-o-transition:opacity .3s ease-in;-ms-transition:opacity .3s ease-in;-moz-transition:opacity .3s ease-in;-webkit-transition:opacity .3s ease-in;transition:opacity .3s ease-in}.loading{max-width:30em;margin:0 auto;padding:15% 1% 0;opacity:1}.ball{background:tomato;height:2em;width:2em;border-radius:50%;margin:0 auto;-o-transition:all .2s ease-out;-ms-transition:all .2s ease-out;-moz-transition:all .2s ease-out;-webkit-transition:all .2s ease-out;transition:all .2s ease-out}.bouncy{-webkit-animation:bounce 2s ease 0s infinite normal;-moz-animation:bounce 2s ease 0s infinite normal;-o-animation:bounce 2s ease 0s infinite normal;animation:bounce 2s ease 0s infinite normal}.opening{max-width:20em;margin:0 auto;padding-top:15%;text-align:center}.opening .highscore span{font-weight:700}.game{padding:0}.game canvas{background:url(../images/background.jpg) 0 0/cover no-repeat #404040;display:block;margin:0 auto}.game .help{background:#46f2cb;position:absolute;font-size:1.3em;padding:.5em;right:1em;top:0;margin:0}.game .helphover{cursor:pointer;-o-transition:background .2s ease-in;-ms-transition:background .2s ease-in;-moz-transition:background .2s ease-in;-webkit-transition:background .2s ease-in;transition:background .2s ease-in}.game .helphover:hover{background:#20c29d}.game .action{position:absolute;bottom:0;left:0;right:0;width:50%;margin:0 auto;color:#f3f3f3;text-align:center;background:#931c07;box-shadow:0 -4px 10px rgba(0,0,0,.3)}.game .tutorial{background:rgba(0,0,0,.8);color:#fff;position:absolute;top:1em;left:0;right:0;width:80%;padding:1em;margin:0 auto}.tutorial strong{color:tomato}.tutorial .gotogame{float:left!important}.tutorial .button{text-align:right;float:right;-o-transition:all 2s ease-in;-ms-transition:all 2s ease-in;-moz-transition:all 2s ease-in;-webkit-transition:all 2s ease-in;transition:all 2s ease-in;-webkit-animation:heyMeMe 2s ease 0s infinite normal;-moz-animation:heyMeMe 2s ease 0s infinite normal;-o-animation:heyMeMe 2s ease 0s infinite normal;animation:heyMeMe 2s ease 0s infinite normal}.info{left:10%;right:10%;top:1em;margin:0 auto;max-width:60em;color:#111;position:absolute;padding:1em;background:rgba(0,207,255,.85)}.info h2{font-weight:400;text-decoration:underline}.info .current{background:#008bff;padding:1em}.current dl{margin:0;display:inline}.current .sound-toggle{text-decoration:underline;cursor:pointer}.current dd,.current dt{display:inline}.current dd{padding:0;margin:0 1em 0 0}.info .about,.info .howto{padding:0 1em}.end{background:#0d0d9d;color:#fff;box-shadow:7px 8px 5px rgba(0,0,0,.2);position:absolute;max-width:40em;padding:2em;margin:10% auto 0;top:0;left:0;right:0}.end dl{border:1px solid #000;padding:1em}.end dd{border-bottom:1px #000 solid;margin-bottom:.5em;padding-bottom:.15em}.end dd:last-child{border:0;margin-bottom:0;padding-bottom:0}.mega-message{position:absolute;bottom:0;font-size:3em;color:tomato;text-align:center;margin:0;left:0;right:0}@-webkit-keyframes bounce{0%{transform:translateY(1)}10%{transform:scaleY(0.95)}15%{transform:scaleY(1)}30%{transform:translateY(-2em);background:#e75f47}35%{transform:translateY(-2em)}40%{transform:scaleY(0.95);background:tomato}50%{transform:translateY(0em)}55%{transform:scaleY(1)}}@-moz-keyframes bounce{0%{transform:translateY(1)}10%{transform:scaleY(0.95)}15%{transform:scaleY(1)}30%{transform:translateY(-2em);background:#e75f47}35%{transform:translateY(-2em)}40%{transform:scaleY(0.95);background:tomato}50%{transform:translateY(0em)}55%{transform:scaleY(1)}}@keyframes bounce{0%{transform:translateY(1)}10%{transform:scaleY(0.95)}15%{transform:scaleY(1)}30%{transform:translateY(-2em);background:#e75f47}35%{transform:translateY(-2em)}40%{transform:scaleY(0.95);background:tomato}50%{transform:translateY(0em)}55%{transform:scaleY(1)}}@-webkit-keyframes heyMeMe{0%{transform:translateY(0)}10%{transform:translateY(-1em)}15%{transform:translateY(0)}30%{transform:translateY(-1em)}45%{transform:translateY(0)}60%{transform:translateY(-1em)}75%{transform:translateY(0)}90%{transform:translateY(-1em)}95%{transform:translateY(0)}}</style>
+</head>
+<body class="wrap">
+    <div class="loading" id="loading-screen">
+        <div class="bouncy ball"></div>
+    </div>
+
+    <div class="opening hidden" id="open-screen">
+        <h1>Stuck in Pimbo</h1>
+        <p class="button" id="open-play">play</p>
+        <p class="button tutorial" id="open-tutorial">tutorial</p>
+        <p class="highscore hidden">highscore: <span id="open-hs"></span></p>
+    </div>
+
+    <div class="game hidden" id="game-screen">
+        <canvas id="game-canvas"></canvas>
+        <p class="help helphover" id="game-help">?</p>
+        <p class="action" id="game-action">reverse</p>
+        <div class="tutorial hidden" id="tutorial">
+            <h2></h2>
+            <p></p>
+            <p class="button" id="tutorial-next">next</p>
+        </div>
+    </div>
+
+    <div class="info hidden" id="info-screen">
+        <section class="current">
+            <dl>
+                <dt>round</dt>
+                <dd id="info-round"></dd>
+
+                <dt>time</dt>
+                <dd id="info-time"></dd>
+
+                <dt>highscore</dt>
+                <dd class="hidden" id="info-highscore"></dd>
+            </dl>
+
+            <span class="sound-toggle" id="sound-toggle">sound is on</span>
+        </section>
+
+        <section class="howto">
+            <h2>How to play</h2>
+            <p>Pims are stuck in pimbo&mdash;help them out by directing them to collect the parts they need to become whole again.</p>
+            <p><strong>Ghosts</strong> will need to collect skulls to claim a body, and then they&apos;ll become <strong>zombies&excl;</strong> Then collect the glowing life that matches the color of its soul to bring the <strong>Pim</strong> back to it&apos;s true form.</p>
+            <p>The <strong>Pims</strong> won&apos;t know what&apos;s around them when they aren&apos;t themselves, so you&apos;ll need to direct them. <strong>Click</strong> the ghost or zombie to <strong>prime (&excl;)</strong> them, and to <strong>direct</strong> them according to your control. They won&apos;t pay attention for long, and you must keep nudging them.</p>
+            <p>Clear all the pims on the field to clear a round.</p>
+
+        </section>
+
+        <section class="about">
+            <h2>About us</h2>
+            <p><emphasis>&quot;Stuck in Pimbo&quot;</emphasis> was created by <a target="_blank" href="https://twitter.com/tropvache">Ana</a> &amp; <a target="_blank" href="https://twitter.com/doopa_kapusta">Alex</a>&mdash;Team Huggabugga. This is our second Ludum Dare game, but our first completed in time for the Jam. The idea for <emphasis>&quot;Stuck in Pimbo&quot;</emphasis> came from the desire to develop a game that didn&apos;t involve violence. Instead, you&apos;re playing God and resurrecting the dead. Hope you enjoy it&excl;</p>
+        </section>
+
+        <p class="button" id="info-closer">close</p>
+    </div>
+
+    <div class="end hidden" id="end-screen">
+        <h2>Success!</h2>
+        <p class="rando">You've helped a generation of Pims</p>
+        <dl>
+            <dt>Ghosts</dt>
+            <dd id="end-ghost-count"></dd>
+
+            <dt>Time</dt>
+            <dd id="end-time"></dd>
+        </dl>
+        <p class="score">score: <span class="end-score" id="end-score"></span></p>
+        <p class="highscore hidden">highscore: <span id="end-hs"></span></p>
+
+        <p class="button" id="end-play">play again</p>
+    </div>
+
+    <h2 class="hidden mega-message" id="mega-message"></h2>
+    <!-- 
+    <script type="text/javascript" src="stuckinpimbo.min.js"></script>
+     -->
+    <script type="text/javascript" src="stuckinpimbo.js"></script>
+    
+</body>
+</html>
