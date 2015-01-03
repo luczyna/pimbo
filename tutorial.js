@@ -42,7 +42,7 @@ var tutorial = {
     amount: function() {
         return this.instructions.length;
     }
-}
+};
 
 //where does this tutorial get accessed?
 //opening screen
@@ -76,7 +76,7 @@ function prepTutorial() {
     //then start the tutorial
     message('welcome to pimbo', 2500);
     window.setTimeout( function() {
-        console.log('doing the tutorial');
+        // console.log('doing the tutorial');
         tutorial_start();
         showTutorialStep();
     }, 3000);
@@ -103,10 +103,6 @@ function tutorial_start() {
     //start the intervals
     game.player_loop = window.setInterval(player_change_action, 5000);
     game.loop = window.setInterval(gameUpdate, 100);
-
-    //add event listeners
-    // elements.help_button.addEventListener('click', showHelp, false);
-    // elements.canvas.addEventListener('click', pushPim, false);
 }
 function showTutorialStep() {
     var step = tutorial.step;
@@ -154,52 +150,52 @@ function checkTutorialStep() {
     switch (tutorial.step) {
         case 0:
             //spawn a pim
-            console.log('step 0, spawned a pim')
+            // console.log('step 0, spawned a pim');
             god();
             destination();
             break;
         case 1:
-            console.log('step 1, added clicking ability to pim');
+            // console.log('step 1, added clicking ability to pim');
             elements.canvas.addEventListener('click', pushPim, false);
             break;
         case 2: 
-            console.log('step 2, added skull, stopped game loop and clicking pim ability');
+            // console.log('step 2, added skull, stopped game loop and clicking pim ability');
             chance();
             window.setTimeout(toggleGameTutorialPlay, 100);
             // toggleGameTutorialPlay('pause');
             break;
         case 4: 
-            console.log('step 4, started game loop and added clicking pim ability');
+            // console.log('step 4, started game loop and added clicking pim ability');
             toggleGameTutorialPlay('play');
             break;
         case 5:
-            console.log('step 5, removing pim clicking');
+            // console.log('step 5, removing pim clicking');
             elements.canvas.removeEventListener('click', pushPim, false);
             break;
         case 6:
-            console.log('step 6, spawning magic, a lot of it');
+            // console.log('step 6, spawning magic, a lot of it');
             for (var i = 0; i < 10; i++) {
                 fate();
             }
             break;
         case 7:
-            console.log('step 7, adding click');
+            // console.log('step 7, adding click');
             // fate();
             elements.canvas.addEventListener('click', pushPim, false);
             break;
         case 8:
-            console.log('step 8, dancing!');
+            // console.log('step 8, dancing!');
             elements.canvas.removeEventListener('click', pushPim, false);
             game.pims[0].countdown = -1;
             break;
         case 9:
-            console.log('step 9, going to the light!');
-            console.log(game.pims[0].countdown);
+            // console.log('step 9, going to the light!');
+            // console.log(game.pims[0].countdown);
             game.pims[0].countdown = 1;
-            console.log(game.pims[0].countdown);
+            // console.log(game.pims[0].countdown);
             break;
         default:
-            console.log('moving along');
+            // console.log('moving along');
             break;
     }
 }
@@ -271,7 +267,7 @@ function repeatTutorial() {
     //then start the tutorial
     message('welcome to pimbo', 2500);
     window.setTimeout( function() {
-        console.log('doing the tutorial');
+        // console.log('doing the tutorial');
         tutorial_start();
         showTutorialStep();
     }, 3000);

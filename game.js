@@ -56,11 +56,6 @@ function gameRender() {
     }
 }
 function gameInfoUpdate() {
-    //skulls?
-    for (var i = 0; i < game.skulls.length; i++) {
-        // updateSkull(i);
-    }
-
     //magic?
     for (var j = 0; j < game.magic.length; j++) {
         updateMagic(j);
@@ -158,8 +153,6 @@ function renderPim(num) {
         param = [library.pim, sx, sy, library.pim_size[2], library.pim_size[3], pim.pos[0], pim.pos[1], dx, dy];
         //if the pim is primed, then draw a '!' above them
         if (pim.primed) {
-            // elements.c.fillStyle = '#f1f1f1';
-            // elements.c.font = '2.5em Fira Mono, monospace';
             var offset;
             if (pim.state === 'ghost') {
                 offset = pim.pos[1] + 17 - library.excla_size[1] * library.multiplier;
@@ -177,7 +170,6 @@ function renderPim(num) {
                 library.excla_size[0] * library.multiplier,
                 library.excla_size[1] * library.multiplier
             );
-            // elements.c.fillText('!', pim.pos[0] + dx / 2.5, offset, dx);
         }
         elements.c.drawImage(param[0], param[1], param[2], param[3], param[4], param[5], param[6], param[7], param[8]);
         // console.log(param.join());
@@ -293,16 +285,6 @@ function renderSkull(num) {
     var skull = game.skulls[num];
     elements.c.drawImage(library.skull, 0, 0, library.skull_size[0], library.skull_size[1], skull.pos[0], skull.pos[1], library.skull_size[0] * library.multiplier, library.skull_size[1] * library.multiplier);
 }
-function updateSkull(num) {
-    var skull = game.skulls[num];
-    if (skull.countdown === 0) {
-        //remove this skull from the skulls array
-        game.skulls.splice(num, 1);
-        // console.log('bye skull');
-    } else {
-        skull.countdown--;
-    }
-}
 
 
 
@@ -322,24 +304,12 @@ function renderMagic(num) {
     dh = library.magic_size[3] * library.multiplier;
 
     elements.c.drawImage(library.magic, sx, sy, library.magic_size[2], library.magic_size[3], magic.pos[0], magic.pos[1], dw, dh);
-    // if (num === 3 && magic.tick === 2) {
-    //  var show = [library.magic, sx, sy, library.magic_size[2], library.magic_size[3], magic.pos[0], magic.pos[1], dw, dh];
-    //  console.log(show.join(', '));
-    // }
 }
 function updateMagic(num) {
     var magic = game.magic[num];
 
     if (magic.tick === 3) {
         magic.tick = 0;
-
-        if (magic.countdown === 0) {
-            //get rid of this magic
-            game.magic.splice(num, 1);
-            // console.log('bye magic');
-        } else {
-            // magic.countdown--;
-        }
     } else {
         magic.tick++;
     }

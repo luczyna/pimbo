@@ -19,8 +19,6 @@ function init_screens() {
         wy = window.innerHeight;
     library.scr[0] = wx;
     library.scr[1] = wy;
-    // library.canvas[0] = wx * 0.95;
-    // library.canvas[1] = wy * 0.95;
     library.canvas[0] = wx;
     library.canvas[1] = wy;
     var m;
@@ -63,7 +61,6 @@ function init_loadingImages() {
     library.portal.src = 'images/portal.svg';
     library.poof.src = 'images/poof.svg';
     library.skull.src = 'images/skull.svg';
-    // library.bg.src = 'images/bg2.svg';
     library.bg.src = 'images/background.jpg';
     library.excla.src = 'images/exclamation.svg';
 
@@ -162,7 +159,6 @@ function reset_game_info(forwhat) {
     game.finished = false;
 
     if (forwhat === 'tutorial') {
-        // game.round = library.data.rounds;
         game.pims.length = 0;
         game.skulls.length = 0;
         game.magic.length = 0;
@@ -193,7 +189,6 @@ function roundOver() {
     //stop things that need to be stopped
     game.running = false;
     game.finished = true;
-    // window.clearInterval(game.loop);
     window.clearInterval(game.player_loop);
     elements.canvas.removeEventListener('click', pushPim, false);
     
@@ -202,8 +197,7 @@ function roundOver() {
     //take into account the saved time from pauses later
     var total = (game.end.getTime() - game.start.getTime()) / 1000 / 60;
     game.total += total;
-    // var pretty = Math.floor(total) + ':';
-    // pretty += 1 - (Math.ceil(total) - total);
+
 
     library.data.rounds++;
     var score = ( library.data.rounds * ((game.limit[0] / 3) + 3) * 1000 ) - (total * 60 * 2);
@@ -365,9 +359,6 @@ function showGameScreenAgain() {
 
 
 function message(str, t) {
-    //clear the messages, incase
-    // elements.message.textContent = '';
-
     //add a message to the screen
     elements.message.textContent = str;
 
@@ -412,9 +403,6 @@ function finishedLoading() {
 function allAssetsLoaded() {
     //stop the bouncy ball
     elements.ball.classList.remove('bouncy');
-
-    //set the canvas bg size
-    // elements.canvas.style.background = "#404040 url('images/bg2.svg') 0 0 auto " + library.bg_size[1] * library.multiplier + "px";
 
     window.setTimeout(function() {
         //fade the ball screen away

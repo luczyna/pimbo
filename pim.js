@@ -4,13 +4,13 @@ function Pim(color) {
     this.state = 'ghost';
     this.tick = 0;
     this.direction = 'down';
-    this.done = false,
-    this.onDestiny = false,
-    this.destiny = [null, null],
+    this.done = false;
+    this.onDestiny = false;
+    this.destiny = [null, null];
     this.countdown = (Math.floor(Math.random() * 6) + 1);
     this.primed = false;
     this.prime_countdown = 10;
-    this.poof = false,
+    this.poof = false;
     this.dancing = false;
     var pox = Math.floor(Math.random() * (library.canvas[0] - library.pim_size[2] * library.multiplier));
     var poy = Math.floor(Math.random() * (library.canvas[1] - library.pim_size[3] * library.multiplier));
@@ -66,7 +66,7 @@ Pim.prototype.changeDirection = function(cause) {
         this.prime_countdown = 10;
     }
 
-}
+};
 Pim.prototype.collide = function() {
     var pd = [];
     pd[0] = this.pos[0];
@@ -77,7 +77,7 @@ Pim.prototype.collide = function() {
     } else if (this.state === 'zombie') {
         this.checkCollide('magic', 0.55, pd);
     }
-}
+};
 Pim.prototype.checkCollide = function(obj, sensitivity, pd) {
     //pd is the Pim Distance/Origin value, like it's left or right most point
     //obj could be skulls or magic
@@ -126,7 +126,7 @@ Pim.prototype.checkCollide = function(obj, sensitivity, pd) {
             collect = false;
         }
     }
-}
+};
 Pim.prototype.goToLight = function() {
     // console.log('going to the light');
     this.onDestiny = true;
@@ -139,7 +139,7 @@ Pim.prototype.goToLight = function() {
     } else {
         this.direction = 'left';
     }
-}
+};
 
 
 function god() {
@@ -223,8 +223,6 @@ function pushPim(e) {
     input[0] = e.pageX - this.offsetLeft - (library.pim_size[2] / 2);
     input[1] = e.pageY - this.offsetTop - (library.pim_size[3] / 2);
     // console.log('this is where I clicked: ' + input[0] + ' ' + input[1]);
-    // elements.c.fillStyle = 'tomato';
-    // elements.c.fillRect(input[0], input[1], 100 * library.multiplier, 100 * library.multiplier);
 
     //does this correlate with any pims?
     for (var i = 0; i < game.pims.length; i++) {
@@ -232,7 +230,6 @@ function pushPim(e) {
         var distx = pim.pos[0] - input[0];
         var disty = pim.pos[1] - input[1];
         // console.log('this is the distance for the ' + pim.color + ' pim: ' + distx + ' ' + disty);
-        // console.log(input.join() + ' >> ' + pim.pos.join());
 
         if ( distx >= (-50 * Math.round(library.multiplier)) &&
             distx <= (50 * Math.round(library.multiplier)) &&
