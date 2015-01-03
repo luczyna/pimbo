@@ -195,7 +195,7 @@ function updatePim(num) {
         
         if (pim.primed && pim.prime_countdown === 0) {
             pim.primed = false;
-            console.log('disengaged pim');
+            // console.log('disengaged pim');
             pim.prime_countdown = 10;
             if (pim.state === 'pim') {
                 console.log('we got issue');
