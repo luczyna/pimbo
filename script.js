@@ -424,11 +424,11 @@ function showHomeScreen() {
 function endGameMessage() {
     var t = game.total;
     var message, which, rank;
-    if (t > 200) {
+    if (t > 120) {
         rank = 2;
-    } else if (t > 60 && t <= 200) {
+    } else if (t > 30 && t <= 120) {
         rank = 1;
-    } else if (t <= 60) {
+    } else if (t <= 30) {
         rank = 0;
     }
     which = Math.floor(Math.random() * endMessages[rank].length);
