@@ -308,7 +308,7 @@ function startGameAgain() {
 function showEnd() {
     //update ending info
 
-    // elements.end_message.textContent = '';
+    elements.end_message.textContent = endGameMessage();
     elements.end_ghosts.textContent = game.limit[0] + ' pims';
     elements.end_time.textContent = Math.round(game.total * 60) + ' seconds';
     elements.end_score.textContent = game.score;
@@ -418,5 +418,21 @@ function showHomeScreen() {
     window.setTimeout(function() {
         elements.opening.style.opacity = 1;
     }, 100);
+}
+
+function endGameMessage() {
+    var t = game.total;
+    var message, which, rank;
+    if (t > 200) {
+        rank = 2;
+    } else if (t > 60 && t <= 200) {
+        rank = 1;
+    } else if (t <= 60) {
+        rank = 0;
+    }
+    which = Math.floor(Math.random() * endMessages[rank].length);
+    message = endMessages[rank][which];
+    console.log(message);
+    return message;
 }
 

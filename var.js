@@ -104,3 +104,34 @@ var elements = {
     'highscore_info': document.getElementById('info-highscore'),
     'highscore_end': document.getElementById('end-hs'),
 };
+
+var endMessages = [
+    //great job!
+    [
+        'You\'ve saved a generation of pims.',
+        'All the pims were saved, and slept soundly that night.',
+        'The rescue pims-from-pimbo plan was completed so quickly, you\'ll be mailed a medal in 2 weeks.',
+        'We all outta pims.',
+        'The pims are thankful.',
+        'Making it through the light, the pims lived to see another pimbo.'
+    ],
+    //okay job
+    [
+        'You might be seeing more pims in pimbo, son.',
+        'Better check that all the zombies are gone.',
+        'The pims won\'t get you... today.',
+        'So proud. So pim. So wow.',
+        'I might be emotional right now.',
+    ],
+    //woah, you need to check yoself
+    [
+        'I might be emotional, but not for any of the right reasons.',
+        'You all outta skill',
+        'Go home, player. You must be drunk.',
+        'The pims are coming to get you for making them suffer in pimbo for so long.',
+        'Pimter is coming.',
+        'Get ready to live in pimbo, you got a first class ticket there.',
+        'Could you take any longer? Gaw!',
+        'You turned into a zombie for taking so long to save the pims.',
+    ]
+];
