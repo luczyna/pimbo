@@ -89,9 +89,9 @@ var elements = {
 
     'open_tutorial': document.getElementById('open-tutorial'),
     'tutorial': document.getElementById('tutorial'),
-    'tut_h': this.tutorial.querySelector('h2'),
-    'tut_p': this.tutorial.querySelectorAll('p')[0],
-    'tut_b': this.tutorial.querySelectorAll('p')[1],
+    'tut_h': document.getElementById('tutorial').querySelector('h2'),
+    'tut_p': document.getElementById('tutorial').querySelectorAll('p')[0],
+    'tut_b': document.getElementById('tutorial').querySelectorAll('p')[1],
     
     'play': document.getElementById('open-play'),
     'play_again': document.getElementById('end-play'),

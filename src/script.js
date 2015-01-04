@@ -422,7 +422,7 @@ function showHomeScreen() {
 }
 
 function endGameMessage() {
-    var t = game.total;
+    var t = game.total * 60;
     var message, which, rank;
     if (t > 120) {
         rank = 2;
@@ -433,7 +433,7 @@ function endGameMessage() {
     }
     which = Math.floor(Math.random() * endMessages[rank].length);
     message = endMessages[rank][which];
-    console.log(message);
+    console.log('end message: ' + message);
     return message;
 }
 

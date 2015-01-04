@@ -4,18 +4,32 @@ module.exports = function(grunt) {
 
 		concat: {
 			options: {
-				separator: ';'
+				separator: '\n'
 			},
 			dist: {
-				src: ['src/*.js'],
+				src: [
+					'src/var.js',
+					'src/tutorial.js',
+					'src/pim.js',
+					'src/game.js',
+					'src/script.js'
+				],
 				dest: 'src/stuckInPimbo.js'
+			}
+		},
+
+		watch: {
+			js: {
+				files: 'src/*.js',
+				tasks: ['concat']
 			}
 		}
 	});
 
 	//load tasks
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	//register tasks
-	grunt.registerTask('dev', ['concat']);
+	grunt.registerTask('dev', ['concat', 'watch']);
 }
