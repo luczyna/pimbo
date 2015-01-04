@@ -1,9 +1,15 @@
 {
-	"name": "Stuck in Pimbo",
-	"version": "0.5",
-	"author": "huggabugga - doopa_kapusta and tropvache",
-	"devDependancies": {
-		"grunt": "~0.4.1",
-		"grunt-contrib-watch": "~0.5.3"
-	}
+  "name": "stuck-in-pimbo",
+  "version": "0.0.5",
+  "author": "huggabugga",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/luczyna/pimbo.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
 }
