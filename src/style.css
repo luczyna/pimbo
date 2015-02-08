@@ -95,10 +95,10 @@ html {
     padding: 0;
 }
 .game canvas {
-    background: #404040 url('../images/background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    /*background-repeat: repeat no-repeat;*/
+    background: #404040 url('../images/background_3.svg');
+    background-size: auto 100%;
+    /*background-repeat: no-repeat;*/
+    background-repeat: repeat no-repeat;
     display: block;
     margin: 0 auto;
 }
