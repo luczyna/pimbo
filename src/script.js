@@ -237,6 +237,7 @@ function showHelp() {
     game.running = false;
     window.clearInterval(game.loop);
     window.clearInterval(game.player_loop);
+    elements.help_button.textContent = '>';
 
     //note the time
     game.end = new Date();
@@ -277,6 +278,8 @@ function updateHelpInfo() {
 function hideHelp() {
     //hide the help
     elements.info.style.opacity = 0;
+
+    elements.help_button.textContent = '||';
 
     //evnt listeners and stuff
     elements.help_button.classList.add('helphover');
