@@ -73,8 +73,25 @@ function init_loadingImages() {
     for (var i = 0; i < assets.length; i++) {
         assets[i].addEventListener('load', finishedLoading, false);
     }
-    for (var j = 0; j < music.length; j++) {
-        music[j].addEventListener('canplay', finishedLoading, false);
+
+    var test = document.createElement('audio');
+    test.setAttribute('oncanplay', 'return');
+
+    // var t = document.createElement('p');
+    // t.textContent = test.oncanplay + '  - this browser recognises the play function';
+    // elements.loading.appendChild(t);
+    
+    if (test.oncanplay === null) {
+        for (var j = 0; j < music.length; j++) {
+            music[j].addEventListener('canplay', finishedLoading, false);
+        }
+    } else {
+        //fake the loading of the 5 audio elements
+        finishedLoading();
+        finishedLoading();
+        finishedLoading();
+        finishedLoading();
+        finishedLoading();
     }
 }
 
@@ -395,7 +412,7 @@ function uponFailure() {
 }
 
 function finishedLoading() {
-    // console.log(this + ' finished loading');
+    // console.log(this.src + ' finished loading');
     this.volume = 0.45;
     this.removeEventListener('load', finishedLoading, false);
     library.assetsLoaded++;
