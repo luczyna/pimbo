@@ -393,7 +393,7 @@ function uponFailure() {
 
 function finishedLoading() {
     // console.log(this + ' finished loading');
-    this.volume *= 0.45;
+    this.volume = 0.45;
     this.removeEventListener('load', finishedLoading, false);
     library.assetsLoaded++;
 

@@ -101,6 +101,7 @@ html {
     background-repeat: repeat no-repeat;
     display: block;
     margin: 0 auto;
+    image-rendering: pixelated;
 }
 .game .help {
     background: rgb(70, 242, 203);
