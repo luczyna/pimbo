@@ -5,12 +5,9 @@
     <meta name="description" content="Stuck in Pimbo: an HTML5 canvas game about Pims and Ghosts">
     <meta name="viewport" content="width=device-width, maximum-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'>
-    <!--(if target dev || prod)><!-->
+    <!-- build:css:prod src/style.min.css -->
     <link rel="stylesheet" type="text/css" href="src/style.css">
-    <!--<!(endif)-->
-    <!--(if target app)><!-->
-    <link rel="stylesheet" type="text/css" href="src/style.min.css">
-    <!--<!(endif)-->
+    <!-- /build -->
 </head>
 <body class="wrap">
     <div class="loading" id="loading-screen">
@@ -86,19 +83,15 @@
 
     <h2 class="hidden mega-message" id="mega-message"></h2>
 
-    <!--(if target dev)><!-->
+    <!-- build:js:prodTest src/stuckInPimbo.js -->
+    <!-- build:js:prod src/stuckInPimbo.min.js -->
     <script type="text/javascript" src="src/var.js"></script>
     <script type="text/javascript" src="src/pim.js"></script>
     <script type="text/javascript" src="src/game.js"></script>
     <script type="text/javascript" src="src/tutorial.js"></script>
     <script type="text/javascript" src="src/script.js"></script>
-    <!--<!(endif)-->
-    <!--(if target prod)><!-->
-    <script type="text/javascript" src="src/stuckInPimbo.js"></script>
-    <!--<!(endif)-->
-    <!--(if target app)><!-->
-    <script type="text/javascript" src="src/stuckInPimbo.min.js"></script>
-    <!--<!(endif)-->
+    <!-- /build -->
+    <!-- /build -->
 
 </body>
 </html>

@@ -1,3 +1,18 @@
+/*
+ * we will have 3 types of grunt tasks
+ *   dev - DEVELOPMENT
+ *   it will run a watch and lint your js files as you save them
+ *
+ *   prod - PRODUCTION
+ *   it will lint and then concatenate your js files
+ *   then run a watch for you to confirm the concat works
+ *
+ *   app - mobile APP
+ *   lint, concat, minify
+ */
+
+
+
 module.exports = function(grunt) {
 	//these files hold the game
 	var working_files = [
@@ -23,20 +38,13 @@ module.exports = function(grunt) {
 
 		watch: {
 			js: {
-				files: 'src/*.js',
+				files: working_files,
 				tasks: ['concat']
 			}
 		},
 
 		jshint: {
 			files: working_files
-		},
-
-		copy: {
-			main: {
-				src: ['src/stuckInPimbo.min.js', 'src/style.min.css'],
-				dest: 'build/stuckInPimbo.min.js'
-			}
 		},
 
 		uglify: {
@@ -58,15 +66,28 @@ module.exports = function(grunt) {
 			}
 		},
 
-		targethtml: {
+		//non-working implementation
+		processhtml: {
+			options: {},
 			dev: {
-				'index.html': 'build/index.html'
+				files: {
+					'index.html': 'process/index.html'					
+				}
+			},
+			prodTest: {
+				files: {
+					'index.html': 'process/index.html'					
+				}
 			},
 			prod: {
-				'index.html': 'build/index.html'
+				files: {
+					'index.html': 'process/index.html'					
+				}
 			},
 			app: {
-				'index.html': 'build/index.html'
+				files: {
+					'index.html': 'process/index.html'					
+				}
 			}
 		}
 	});
@@ -78,10 +99,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-targethtml');
+	grunt.loadNpmTasks('grunt-processhtml');
 
 	//register tasks
-	grunt.registerTask('dev', ['jshint', 'targethtml:dev','watch']);
-	grunt.registerTask('prod', ['jshint', 'concat', 'targethtml:prod', 'watch']);
-	grunt.registerTask('app', ['jshint', 'concat', 'uglify', 'cssmin', 'copy', 'targethtml:app']);
+	grunt.registerTask('dev', ['jshint', 'watch']);
+	grunt.registerTask('prod', ['jshint', 'concat', 'uglify', 'cssmin', 'watch');
+	grunt.registerTask('app', ['jshint', 'concat', 'uglify', 'cssmin', );
 }
