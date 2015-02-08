@@ -242,7 +242,7 @@ function checkingCriteria() {
     // is there any other way?
     // I don't see the danger of using it here
     // but open to other strategy
-    if (eval(str)) {
+    if (eval(str)) { // jshint ignore:line
         // criteria is fulfilled, stop this loop;
         window.clearInterval(tutorial.checking);
 

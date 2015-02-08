@@ -379,7 +379,7 @@ function checkingCriteria() {
     // is there any other way?
     // I don't see the danger of using it here
     // but open to other strategy
-    if (eval(str)) {
+    if (eval(str)) { // jshint ignore:line
         // criteria is fulfilled, stop this loop;
         window.clearInterval(tutorial.checking);
 
@@ -1243,13 +1243,13 @@ function roundOver() {
 function checkHighscore(num) {
     if (num && num > library.data.highscore) {
         library.data.highscore = num;
-        window.localStorage['pimbo'] = num;
+        window.localStorage['pimbo'] = num; // jshint ignore:line
     }
 }
 function checkLocalStorage() {
     //does the localStorage exist?
-    if (window.localStorage['pimbo']) {
-        var hs = Number(window.localStorage['pimbo']);
+    if (window.localStorage['pimbo']) { // jshint ignore:line
+        var hs = Number(window.localStorage['pimbo']); // jshint ignore:line
         library.data.highscore = hs;
         elements.highscore_open.textContent = hs;
         elements.highscore_open.parentElement.classList.remove('hidden');
