@@ -61,7 +61,7 @@ function init_loadingImages() {
     library.portal.src = 'images/portal.svg';
     library.poof.src = 'images/poof.svg';
     library.skull.src = 'images/skull.svg';
-    library.bg.src = 'images/background.jpg';
+    library.bg.src = 'images/background_3.svg';
     library.excla.src = 'images/exclamation.svg';
 
     library.ghost_sound.src = 'track/Ghost_01.wav';

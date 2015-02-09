@@ -1102,8 +1102,25 @@ function init_loadingImages() {
     for (var i = 0; i < assets.length; i++) {
         assets[i].addEventListener('load', finishedLoading, false);
     }
-    for (var j = 0; j < music.length; j++) {
-        music[j].addEventListener('canplay', finishedLoading, false);
+
+    var test = document.createElement('audio');
+    test.setAttribute('oncanplay', 'return');
+
+    // var t = document.createElement('p');
+    // t.textContent = test.oncanplay + '  - this browser recognises the play function';
+    // elements.loading.appendChild(t);
+    
+    if (test.oncanplay === null) {
+        for (var j = 0; j < music.length; j++) {
+            music[j].addEventListener('canplay', finishedLoading, false);
+        }
+    } else {
+        //fake the loading of the 5 audio elements
+        finishedLoading();
+        finishedLoading();
+        finishedLoading();
+        finishedLoading();
+        finishedLoading();
     }
 }
 
@@ -1266,6 +1283,7 @@ function showHelp() {
     game.running = false;
     window.clearInterval(game.loop);
     window.clearInterval(game.player_loop);
+    elements.help_button.textContent = '>';
 
     //note the time
     game.end = new Date();
@@ -1306,6 +1324,8 @@ function updateHelpInfo() {
 function hideHelp() {
     //hide the help
     elements.info.style.opacity = 0;
+
+    elements.help_button.textContent = '||';
 
     //evnt listeners and stuff
     elements.help_button.classList.add('helphover');
@@ -1421,8 +1441,8 @@ function uponFailure() {
 }
 
 function finishedLoading() {
-    // console.log(this + ' finished loading');
-    this.volume *= 0.45;
+    // console.log(this.src + ' finished loading');
+    this.volume = 0.45;
     this.removeEventListener('load', finishedLoading, false);
     library.assetsLoaded++;
 
