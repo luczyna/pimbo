@@ -117,6 +117,7 @@ html {
     display: block;
     margin: 0 auto;
     image-rendering: pixelated;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 .game .help {
     background: #A0E8FB;
