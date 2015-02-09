@@ -103,6 +103,6 @@ module.exports = function(grunt) {
 
 	//register tasks
 	grunt.registerTask('dev', ['jshint', 'watch']);
-	grunt.registerTask('prod', ['jshint', 'concat', 'uglify', 'cssmin', 'watch');
-	grunt.registerTask('app', ['jshint', 'concat', 'uglify', 'cssmin', );
+	grunt.registerTask('prod', ['jshint', 'concat', 'uglify', 'cssmin', 'watch']);
+	grunt.registerTask('app', ['jshint', 'concat', 'uglify', 'cssmin']);
 }
