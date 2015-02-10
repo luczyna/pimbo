@@ -1,3 +1,4 @@
+window.addEventListener('click', function() {console.log("poop");}, false);
 // the tutorial
 // is so important that it
 // gets its own file
@@ -49,6 +50,7 @@ var tutorial = {
 function accessTutorial() {
     //clear your event
     this.removeEventListener('click', accessTutorial, false);
+    this.removeEventListener('touchstart', accessTutorial, false);
 
     //okay, show the game screen
     elements.opening.style.opacity = 0;
@@ -117,12 +119,14 @@ function showTutorialStep() {
         //go to the next step
         elements.tut_b.textContent = 'next';
         elements.tut_b.addEventListener('click', nextStepSimple, false);
+        elements.tut_b.addEventListener('touchstart', nextStepSimple, false);
         //should something else change?
         checkTutorialStep();
     } else if (next === 'again') {
         //offer to repeat the tutorial
         elements.tut_b.textContent = 'repeat?';
         elements.tut_b.addEventListener('click', repeatTutorial, false);
+        elements.tut_b.addEventListener('touchstart', repeatTutorial, false);
 
         //or take me to game play?
         var button = document.createElement('p');
@@ -130,6 +134,7 @@ function showTutorialStep() {
         button.textContent = 'start playing';
         elements.tutorial.appendChild(button);
         button.addEventListener('click', leaveTutorial, false);
+        button.addEventListener('touchstart', leaveTutorial, false);
 
     } else {
         //this is a check...
@@ -138,6 +143,7 @@ function showTutorialStep() {
 
         elements.tut_b.textContent = 'okay, try';
         elements.tut_b.addEventListener('click', startCheckingCriteria, false);
+        elements.tut_b.addEventListener('touchstart', startCheckingCriteria, false);
     }
 
 
@@ -157,6 +163,7 @@ function checkTutorialStep() {
         case 1:
             // console.log('step 1, added clicking ability to pim');
             elements.canvas.addEventListener('click', pushPim, false);
+            elements.canvas.addEventListener('touchstart', pushPim, false);
             break;
         case 2: 
             // console.log('step 2, added skull, stopped game loop and clicking pim ability');
@@ -171,6 +178,7 @@ function checkTutorialStep() {
         case 5:
             // console.log('step 5, removing pim clicking');
             elements.canvas.removeEventListener('click', pushPim, false);
+            elements.canvas.removeEventListener('touchstart', pushPim, false);
             break;
         case 6:
             // console.log('step 6, spawning magic, a lot of it');
@@ -182,10 +190,13 @@ function checkTutorialStep() {
             // console.log('step 7, adding click');
             // fate();
             elements.canvas.addEventListener('click', pushPim, false);
+            elements.canvas.addEventListener('touchstart', pushPim, false);
             break;
         case 8:
             // console.log('step 8, dancing!');
             elements.canvas.removeEventListener('click', pushPim, false);
+            elements.canvas.removeEventListener('touchstart', pushPim, false);
+
             game.pims[0].countdown = -1;
             break;
         case 9:
@@ -202,16 +213,19 @@ function checkTutorialStep() {
 function toggleGameTutorialPlay(play) {
     if (play === 'play') {
         elements.canvas.addEventListener('click', pushPim, false);
+        elements.canvas.addEventListener('touchstart', pushPim, false);
         game.loop = window.setInterval(gameUpdate, 100);
     } else {
         window.clearInterval(game.loop);
         elements.canvas.removeEventListener('click', pushPim, false);
+        elements.canvas.removeEventListener('touchstart', pushPim, false);
     }
 }
 
-function nextStepSimple() {
+function nextStepSimple(event) {
     //clean up
     this.removeEventListener('click', nextStepSimple, false);
+    this.removeEventListener('touchstart', nextStepSimple, false);
 
     //hide the tutorial breifly
     elements.tutorial.classList.add('hidden');
@@ -219,10 +233,13 @@ function nextStepSimple() {
     //now update
     tutorial.next();
     showTutorialStep();
+
+    event.preventDefault();
 }
-function startCheckingCriteria() {
+function startCheckingCriteria(event) {
     //clean up
     this.removeEventListener('click', startCheckingCriteria, false);
+    this.removeEventListener('touchstart', startCheckingCriteria, false);
 
     //hide the tutorial breifly
     elements.tutorial.classList.add('hidden');
@@ -232,6 +249,8 @@ function startCheckingCriteria() {
 
     //start checking
     tutorial.checking = window.setInterval(checkingCriteria, 100);
+
+    event.preventDefault();
 }
 function checkingCriteria() {
     //check to see if the instructions criteria is true
@@ -252,9 +271,10 @@ function checkingCriteria() {
     }
 }
 
-function repeatTutorial() {
+function repeatTutorial(event) {
     //clean up after yourself
     this.removeEventListener('click', repeatTutorial, false);
+    this.removeEventListener('touchstart', repeatTutorial, false);
     var removeThis = this.parentNode.getElementsByTagName('p')[2];
     this.parentNode.removeChild(removeThis);
 
@@ -271,12 +291,16 @@ function repeatTutorial() {
         tutorial_start();
         showTutorialStep();
     }, 3000);
+
+    event.preventDefault();
 }
-function leaveTutorial() {
+function leaveTutorial(event) {
     //clean up
     this.removeEventListener('click', leaveTutorial, false);
+    this.removeEventListener('touchstart', leaveTutorial, false);
     this.parentNode.removeChild(this);
     elements.tut_b.removeEventListener('click', repeatTutorial, false);
+    elements.tut_b.removeEventListener('touchstart', repeatTutorial, false);
 
     //hide the tutorial
     elements.tutorial.classList.add('hidden');
@@ -286,4 +310,6 @@ function leaveTutorial() {
     window.setTimeout( function() {
         prepGame();
     }, 3000);
+
+    event.preventDefault();
 }

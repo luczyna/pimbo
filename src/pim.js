@@ -220,9 +220,17 @@ function pushPim(e) {
     var input = [];
 
     //where did the mouse click?
-    input[0] = e.pageX - this.offsetLeft - (library.pim_size[2] / 2);
-    input[1] = e.pageY - this.offsetTop - (library.pim_size[3] / 2);
-    // console.log('this is where I clicked: ' + input[0] + ' ' + input[1]);
+    // console.log(e.type);
+    e.preventDefault();
+    if (e.type === 'touchstart') {
+        input[0] = e.touches[0].clientX - this.offsetLeft - (library.pim_size[2] / 2);
+        input[1] = e.touches[0].clientY - this.offsetTop - (library.pim_size[3] / 2);
+    } else {
+        input[0] = e.pageX - this.offsetLeft - (library.pim_size[2] / 2);
+        input[1] = e.pageY - this.offsetTop - (library.pim_size[3] / 2);
+    }
+    console.log('this is where I clicked: ' + input[0] + ' ' + input[1]);
+
 
     //does this correlate with any pims?
     for (var i = 0; i < game.pims.length; i++) {
@@ -241,4 +249,5 @@ function pushPim(e) {
             pim.changeDirection('player');
         }
     }
+
 }

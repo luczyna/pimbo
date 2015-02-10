@@ -110,17 +110,22 @@ function init_info() {
 
     //add sound control to the info context
     elements.music.addEventListener('click', toggleSound, false);
+    elements.music.addEventListener('touchstart', toggleSound, false);
 }
 
 function prepareScreen() {
     //event listeners
     elements.play.addEventListener('click', goToGame, false);
+    elements.play.addEventListener('touchstart', goToGame, false);
     elements.open_tutorial.addEventListener('click', accessTutorial, false);
+    elements.open_tutorial.addEventListener('touchstart', accessTutorial, false);
 }
-function goToGame() {
+function goToGame(event) {
     //hide opening, show game
     elements.opening.style.opacity = 0;
     elements.opening.addEventListener('transitionend', goToGameScreen, false);
+
+    event.preventDefault();
 }
 function goToGameScreen() {
     elements.opening.removeEventListener('transitionend', goToGameScreen, false);
@@ -132,7 +137,7 @@ function goToGameScreen() {
     }, 100);
 }
 function prepGame() {
-    console.log('the game should be starting');
+    // console.log('the game should be starting');
     elements.game.removeEventListener('transitionend', prepGame, false);
     message('get ready', 2500);
     //start game
@@ -164,7 +169,9 @@ function game_start() {
 
     //add event listeners
     elements.help_button.addEventListener('click', showHelp, false);
+    elements.help_button.addEventListener('touchstart', showHelp, false);
     elements.canvas.addEventListener('click', pushPim, false);
+    elements.canvas.addEventListener('touchstart', pushPim, false);
 }
 function reset_game_info(forwhat) {
     game.start = 0;
@@ -208,6 +215,7 @@ function roundOver() {
     game.finished = true;
     window.clearInterval(game.player_loop);
     elements.canvas.removeEventListener('click', pushPim, false);
+    elements.canvas.removeEventListener('touchstart', pushPim, false);
     
     //what's our ending info?
     game.end = new Date();
@@ -249,7 +257,7 @@ function checkLocalStorage() {
 
 
 
-function showHelp() {
+function showHelp(event) {
     //pause game
     game.running = false;
     window.clearInterval(game.loop);
@@ -274,8 +282,13 @@ function showHelp() {
 
     //event listeners
     elements.canvas.removeEventListener('click', pushPim, false);
+    elements.canvas.removeEventListener('touchstart', pushPim, false);
     elements.help_button.removeEventListener('click', showHelp, false);
+    elements.help_button.removeEventListener('touchstart', showHelp, false);
     elements.info_close.addEventListener('click', hideHelp, false);
+    elements.info_close.addEventListener('touchstart', hideHelp, false);
+
+    event.preventDefault();
 }
 function updateHelpInfo() {
     var hs;
@@ -292,7 +305,7 @@ function updateHelpInfo() {
     }
     elements.highscore_info.textContent = hs;
 }
-function hideHelp() {
+function hideHelp(event) {
     //hide the help
     elements.info.style.opacity = 0;
 
@@ -301,8 +314,10 @@ function hideHelp() {
     //evnt listeners and stuff
     elements.help_button.classList.add('helphover');
     elements.info_close.removeEventListener('click', hideHelp, false);
+    elements.info_close.removeEventListener('touchstart', hideHelp, false);
     elements.info.addEventListener('transitionend', startGameAgain, false);
 
+    event.preventDefault();
 }
 function startGameAgain() {
     elements.info.removeEventListener('transitionend', startGameAgain, false);
@@ -317,7 +332,9 @@ function startGameAgain() {
 
         //add event listeners
         elements.help_button.addEventListener('click', showHelp, false);
+        elements.help_button.addEventListener('touchstart', showHelp, false);
         elements.canvas.addEventListener('click', pushPim, false);
+        elements.canvas.addEventListener('touchstart', pushPim, false);
 
     }, 200);
 }
@@ -345,13 +362,18 @@ function showEnd() {
 
     //event listeners
     elements.canvas.removeEventListener('click', pushPim, false);
+    elements.canvas.removeEventListener('touchstart', pushPim, false);
     elements.help_button.removeEventListener('click', showHelp, false);
+    elements.help_button.removeEventListener('touchstart', showHelp, false);
     elements.play_again.addEventListener('click', playAgain, false);
+    elements.play_again.addEventListener('touchstart', playAgain, false);
 }
-function playAgain() {
+function playAgain(event) {
     //hide the ending
     elements.ending.style.opacity = 0;
     elements.ending.addEventListener('transitionend', showGameScreenAgain, false);
+
+    event.preventDefault();
 }
 function showGameScreenAgain() {
     this.removeEventListener('transitionend', showGameScreenAgain, false);
@@ -360,14 +382,18 @@ function showGameScreenAgain() {
 
     //event listeners
     elements.play_again.removeEventListener('click', playAgain, false);
-    elements.canvas.addEventListener('click', pushPim, false);
-    elements.help_button.addEventListener('click', showHelp, false);
-    elements.help_button.classList.add('helphover');
+    elements.play_again.removeEventListener('touchstart', playAgain, false);
     
     message('get ready', 2000);
     window.setTimeout(function() {
         game_start();
         message('go!', 500);
+    
+        elements.canvas.addEventListener('touchstart', pushPim, false);
+        elements.canvas.addEventListener('click', pushPim, false);
+        elements.help_button.addEventListener('click', showHelp, false);
+        elements.help_button.addEventListener('touchstart', showHelp, false);
+        elements.help_button.classList.add('helphover');
     }, 2000);
     
 }
@@ -391,7 +417,7 @@ function message(str, t) {
     }, t);
 }
 
-function toggleSound() {
+function toggleSound(event) {
     if (library.data.music) {
         library.data.music = false;
         elements.music.textContent = 'sound is off';
@@ -399,6 +425,8 @@ function toggleSound() {
         library.data.music = true;
         elements.music.textContent = 'sound is on';
     }
+
+    event.preventDefault();
 }
 
 
