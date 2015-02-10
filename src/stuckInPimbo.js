@@ -135,7 +135,6 @@ var endMessages = [
         'You turned into a zombie for taking so long to save the pims.',
     ]
 ];
-window.addEventListener('click', function() {console.log("poop");}, false);
 // the tutorial
 // is so important that it
 // gets its own file
