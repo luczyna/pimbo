@@ -11,4 +11,8 @@
   <access origin="*" />
 
   <gap:platform name="android" />
+
+  <preference name="orientation" value="portrait" />
+
+  <icon src="images/icons/icon.png" />
 </widget>
