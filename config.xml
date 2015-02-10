@@ -12,7 +12,7 @@
 
     <gap:platform name="android" />
 
-    <suppots-screens android:anyDensity="true" android:resizeable="true" 
+    <supports-screens android:anyDensity="true" android:resizeable="true" 
         android:smallScreens="true"
         android:normalScreens="true"
         android:largeScreens="true"
