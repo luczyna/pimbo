@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget id="com.tropvache" version="1.0.0">
-    <name>Stuck in Pimbo</name>
-    <description>
-        Save the pims - help the ghosts turn to zombies and the zombies to pims to let them escape pimbo.
-    </description>
-    <author email="luczynaki@gmail.com" href="http://tropvache.com">
-        Tropvache - Ana Luczynski
-    </author>
-    <content src="index.html" />
-    <access origin="*" />
+<widget id="com.tropvache" version="1.0.0" xmlns:gap="http://phonegap.com/ns/1.0">
+  <name>Stuck in Pimbo</name>
+  <description>
+    Save the pims-help the ghosts turn to zombies and the zombies to pims to let them escape pimbo.
+  </description>
+  <author email="luczynaki@gmail.com" href="http://tropvache.com">
+    Tropvache - Ana Luczynski
+  </author>
+  <content src="index.html" />
+  <access origin="*" />
 
-    <gap:platform name="android" />
+  <gap:platform name="android" />
 
-    <supports-screens android:anyDensity="true" android:resizeable="true" 
-        android:smallScreens="true"
-        android:normalScreens="true"
-        android:largeScreens="true"
-        android:xLargeScreens="true" />
+  <supports-screens gap:smallScreens="true" gap:normalScreens="true" gap:largeScreens="true" gap:xLargeScreens="true" />
 
-    <!--<preference name="permission" value="none" /> -->
-    <preference name="fullscreen" value="true" />
-    <preference name="orientation" value="portrait" />
-    <preference name="splash-screen-duration" value="3000"/>
+  <!--<preference name="permission" value="none" /> -->
+  <preference name="fullscreen" value="true" />
+  <preference name="orientation" value="portrait" />
+  <preference name="splash-screen-duration" value="3000"/>
 
-    <feature name="http://api.phonegap.com/1.0/media" />
+  <feature name="http://api.phonegap.com/1.0/media" />
 
-    <gap:plugin name="org.apache.cordova.media" />
-    <gap:plugin name="org.apache.cordova.splashscreen" />
+  <gap:plugin name="org.apache.cordova.media" />
+  <gap:plugin name="org.apache.cordova.splashscreen" />
 
-    <icon src="images/icon/ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
-    <icon src="images/icon/mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
-    <icon src="images/icon/hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
-    <icon src="images/icon/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
-    <icon src="images/icon/xxhdpi.png" gap:platform="android" gap:qualifier="xxhdpi" />
-    <icon src="images/icon/xxxhdpi.png" gap:platform="android" gap:qualifier="fr-xxhdpi" />
+  <icon src="images/icon/icon.png" />
+  <icon src="images/icon/ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
+  <icon src="images/icon/mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
+  <icon src="images/icon/hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
+  <icon src="images/icon/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
+  <icon src="images/icon/xxhdpi.png" gap:platform="android" gap:qualifier="xxhdpi" />
+  <icon src="images/icon/xxxhdpi.png" gap:platform="android" gap:qualifier="fr-xxhdpi" />
 
-    <gap:splash src="images/spash/ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
-    <gap:splash src="images/spash/mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
-    <gap:splash src="images/spash/hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
-    <gap:splash src="images/spash/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
+  <gap:splash src="images/spash/ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
+  <gap:splash src="images/spash/mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
+  <gap:splash src="images/spash/hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
+  <gap:splash src="images/spash/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
 </widget>
