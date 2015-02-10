@@ -15,4 +15,5 @@
   <preference name="orientation" value="portrait" />
 
   <icon src="images/icons/icon.png" />
+  <gap:splash src="images/splash/hdpi.png" />
 </widget>
