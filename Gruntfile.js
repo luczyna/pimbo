@@ -17,9 +17,9 @@ module.exports = function(grunt) {
 	//these files hold the game
 	var working_files = [
 		'src/var.js',
-		'src/tutorial.js',
 		'src/pim.js',
 		'src/game.js',
+		'src/tutorial.js',
 		'src/script.js'
 	];
 
@@ -49,7 +49,10 @@ module.exports = function(grunt) {
 
 		uglify: {
 			options: {
-				mangle: false
+				mangle: false,
+				wrap: 'pimbo',
+				quoteStyle: 3,
+				compress: true
 			},
 			target: {
 				files: {
