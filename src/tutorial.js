@@ -1,4 +1,3 @@
-window.addEventListener('click', function() {console.log("poop");}, false);
 // the tutorial
 // is so important that it
 // gets its own file
