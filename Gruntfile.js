@@ -11,8 +11,6 @@
  *   lint, concat, minify
  */
 
-
-
 module.exports = function(grunt) {
 	//these files hold the game
 	var working_files = [
@@ -92,7 +90,22 @@ module.exports = function(grunt) {
 					'index.html': 'process/index.html'					
 				}
 			}
-		}
+		},
+
+		shell: {
+            options: {
+                stderr: false
+            },
+            make_dist: {
+                command: 'mkdir dist; mkdir dist/src'
+            },
+            copy_for_dist: {
+                command: 'cp index.html dist; cp src/stuckInPimbo.min.js dist/src/; cp src/style.min.css dist/src/; cp -r images dist'
+            },
+            cleanup: {
+            	command: 'rm -rf dist'
+            }
+        }
 	});
 
 	//load tasks
@@ -103,9 +116,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-processhtml');
+	grunt.loadNpmTasks('grunt-shell');
+
 
 	//register tasks
 	grunt.registerTask('dev', ['jshint', 'watch']);
 	grunt.registerTask('prod', ['jshint', 'concat', 'uglify', 'cssmin', 'watch']);
 	grunt.registerTask('app', ['jshint', 'concat', 'uglify', 'cssmin']);
+	grunt.registerTask('dist', ['shell:cleanup', 'shell:make_dist', 'shell:copy_for_dist']);
 }
